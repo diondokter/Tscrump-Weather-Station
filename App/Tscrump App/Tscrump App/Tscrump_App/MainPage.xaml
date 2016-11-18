@@ -4,8 +4,17 @@
              xmlns:local="clr-namespace:Tscrump_App"
              x:Class="Tscrump_App.MainPage">
 
-	<Label Text="Welcome to Xamarin Forms!"
-           VerticalOptions="Center"
-           HorizontalOptions="Center" />
+	<ScrollView>
+
+		<StackLayout>
+
+				<StackLayout BackgroundColor="#00CCBB">
+					<Label Text="Tscrump Weather Station" FontSize="48" HorizontalTextAlignment="Center" TextColor="White"/>
+					<Label Text="Make Weather Station great again!!" FontSize="24" HorizontalTextAlignment="Center" TextColor="White"/>					
+				</StackLayout>
+			
+		</StackLayout>
+
+	</ScrollView>
 
 </ContentPage>
