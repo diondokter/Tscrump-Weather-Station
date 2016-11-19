@@ -11,7 +11,7 @@ namespace Tscrump_App
 	{
 		public const string Server = "192.168.105.184";
 		public const string Port = "3306";
-		public const string Database = "World";
+		public const string Database = "dummyweatherstation";
 		public const string UID = "App";
 		public const string Password = "AppPassword";
 
