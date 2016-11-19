@@ -9,10 +9,11 @@ namespace Tscrump_App
 {
 	public static class DatabaseManager
 	{
-		public const string Server = "192.168.105.184:3306";
-		public const string Database = "world";
-		public const string UID = "root";
-		public const string Password = "Qwerty01";
+		public const string Server = "192.168.105.184";
+		public const string Port = "3306";
+		public const string Database = "World";
+		public const string UID = "App";
+		public const string Password = "AppPassword";
 
 		public static IDatabaseManager Instance
 		{

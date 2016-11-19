@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 using System.Data;
 using System.Data.Common;
 using MySql.Data.MySqlClient;
+using Tscrump_App.UWP;
 
+[assembly: Xamarin.Forms.Dependency(typeof(DatabaseManager))]
 namespace Tscrump_App.UWP
 {
 	public class DatabaseManager : IDatabaseManager, IDisposable
@@ -16,7 +18,10 @@ namespace Tscrump_App.UWP
 
 		public DatabaseManager()
 		{
-			string ConnectionString = $"SERVER={Tscrump_App.DatabaseManager.Server};DATABASE={Tscrump_App.DatabaseManager.Database};UID={Tscrump_App.DatabaseManager.UID};PASSWORD={Tscrump_App.DatabaseManager.Password};";
+			//Set our encoding to something that mysql can understand
+			Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+
+			string ConnectionString = $"Server={Tscrump_App.DatabaseManager.Server}; Port={Tscrump_App.DatabaseManager.Port}; Database={Tscrump_App.DatabaseManager.Database}; Uid={Tscrump_App.DatabaseManager.UID}; Pwd={Tscrump_App.DatabaseManager.Password}; SslMode=None;";
 
 			Connection = new MySqlConnection(ConnectionString);
 			Connection.Open();
@@ -32,6 +37,7 @@ namespace Tscrump_App.UWP
 		public List<object[]> ExecuteReader(string Query)
 		{
 			MySqlCommand Command = Connection.CreateCommand();
+			Command.Prepare();
 			Command.CommandText = Query;
 			MySqlDataReader Reader = Command.ExecuteReader();
 
@@ -48,6 +54,9 @@ namespace Tscrump_App.UWP
 
 				Data.Add(Row);
 			}
+
+			Reader.Close();
+			Reader.Dispose();
 
 			return Data;
 		}
