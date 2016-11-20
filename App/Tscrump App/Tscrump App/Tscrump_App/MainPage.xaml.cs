@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -26,9 +28,22 @@ namespace Tscrump_App
 				TestLabel.Text += "\n";
 			}
 
-			//TestChart.Series.Add(new ChartView.Serie() { TargetColor = Color.Blue, Values = new List<Point>() { new Point(0, 0.1), new Point(0.1, 0.2), new Point(0.2, 0.25), new Point(0.3, 0.2), new Point(0.4, 0.5), new Point(0.5, 0.4), new Point(0.6, 0.8) } });
-			//TestChart.Series.Add(new ChartView.Serie() { TargetColor = Color.Red, Values = new List<Point>() { new Point(0, 0.9), new Point(0.1, 0.8), new Point(0.2, 0.6), new Point(0.3, 0.7), new Point(0.4, 0.5), new Point(0.5, 0.2), new Point(0.6, 0.3) } });
+			ChartWebView.Source = new HtmlWebViewSource() { Html = Html };
+		}
 
+		public string Html
+		{
+			get
+			{
+				var assembly = typeof(MainPage).GetTypeInfo().Assembly;
+				Stream stream = assembly.GetManifestResourceStream("Tscrump_App.Chart.html");
+				string text = "";
+				using (var reader = new System.IO.StreamReader(stream))
+				{
+					text = reader.ReadToEnd();
+				}
+				return text;
+			}
 		}
 	}
 }

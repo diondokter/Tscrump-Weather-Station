@@ -2,7 +2,9 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:Tscrump_App"
-             x:Class="Tscrump_App.MainPage">
+             x:Class="Tscrump_App.MainPage"
+			 HeightRequest="100000000"
+			 WidthRequest="100000000">
 	
 	<ScrollView>
 
@@ -13,7 +15,7 @@
 				<Label Text="Make Weather Stations great again!" FontSize="24" HorizontalTextAlignment="Center" TextColor="White"/>
 			</StackLayout>
 
-			<local:ChartView/>
+			<WebView x:Name="ChartWebView" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
 			<Label x:Name="TestLabel"/>
 		</StackLayout>
 
