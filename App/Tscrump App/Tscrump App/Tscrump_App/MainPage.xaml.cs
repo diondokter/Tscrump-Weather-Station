@@ -17,18 +17,28 @@ namespace Tscrump_App
 
 			//long Count = (long)DatabaseManager.Instance.ExecuteScaler("Select count(*) from city");
 
-			var x = DatabaseManager.Instance.ExecuteReader($"Select * from dummysensorvalues where Date > {new DateTime(2016, 11, 17).ToSQLString()} order by Pressure");
+			var Pressure = DatabaseManager.Instance.ExecuteReader($"Select Pressure from dummysensorvalues");
+			var Temperature = DatabaseManager.Instance.ExecuteReader($"Select Temperature from dummysensorvalues");
+			var Dates = DatabaseManager.Instance.ExecuteReader($"Select Date from dummysensorvalues");
 
-			for (int i = 0; i < x.Count; i++)
-			{
-				for (int j = 0; j < x[i].Length; j++)
-				{
-					TestLabel.Text += x[i][j].ToString() + "    ";
-				}
-				TestLabel.Text += "\n";
-			}
+			//for (int i = 0; i < x.Count; i++)
+			//{
+			//	for (int j = 0; j < x[i].Length; j++)
+			//	{
+			//		TestLabel.Text += x[i][j].ToString() + "    ";
+			//	}
+			//	TestLabel.Text += "\n";
+			//}
+
 
 			ChartWebView.Source = new HtmlWebViewSource() { Html = Html };
+
+
+			Task.Factory.StartNew(async () =>
+			{
+				await Task.Delay(500); // Wait for the webview to be loaded
+				ChartWebView.Eval($"construct({Pressure.ToJSArray()},{Temperature.ToJSArray()},{Dates.ToJSArray()})");
+			});
 		}
 
 		public string Html
@@ -38,7 +48,7 @@ namespace Tscrump_App
 				var assembly = typeof(MainPage).GetTypeInfo().Assembly;
 				Stream stream = assembly.GetManifestResourceStream("Tscrump_App.Chart.html");
 				string text = "";
-				using (var reader = new System.IO.StreamReader(stream))
+				using (StreamReader reader = new StreamReader(stream))
 				{
 					text = reader.ReadToEnd();
 				}

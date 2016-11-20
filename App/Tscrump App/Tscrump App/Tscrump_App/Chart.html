@@ -2,63 +2,66 @@
 
 <!DOCTYPE html>
 <html>
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
-<style>
-    html {
-        font-family: Arial, Helvetica, sans-serif;
-        font-size: 24px;
-    }
-    .k-chart { overflow: hidden; }
-    html { height:100%; }
-    body { height:100%; overflow:hidden; margin:0; padding:0; }
-  </style>
-  <title></title>
-<link rel="stylesheet" href="http://cdn.kendostatic.com/2014.3.1119/styles/kendo.common.min.css" />
-<link rel="stylesheet" href="http://cdn.kendostatic.com/2014.3.1119/styles/kendo.default.min.css" />
-<link rel="stylesheet" href="http://cdn.kendostatic.com/2014.3.1119/styles/kendo.dataviz.min.css" />
-<link rel="stylesheet" href="http://cdn.kendostatic.com/2014.3.1119/styles/kendo.dataviz.default.min.css" />
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+		<style>
+			html
+			{
+				font-family: Arial, Helvetica, sans-serif;
+				font-size: 24px;
+			}
+			.k-chart { overflow: hidden; }
+			html { height:100%; }
+			body { height:100%; overflow:hidden; margin:0; padding:0; }
+		</style>
+		<title></title>
+		<link rel="stylesheet" href="http://cdn.kendostatic.com/2014.3.1119/styles/kendo.common.min.css" />
+		<link rel="stylesheet" href="http://cdn.kendostatic.com/2014.3.1119/styles/kendo.default.min.css" />
+		<link rel="stylesheet" href="http://cdn.kendostatic.com/2014.3.1119/styles/kendo.dataviz.min.css" />
+		<link rel="stylesheet" href="http://cdn.kendostatic.com/2014.3.1119/styles/kendo.dataviz.default.min.css" />
 
-<script src="http://cdn.kendostatic.com/2014.3.1119/js/jquery.min.js"></script>
-<script src="http://cdn.kendostatic.com/2014.3.1119/js/kendo.all.min.js"></script>
-</head>
-<body>
+		<script src="http://cdn.kendostatic.com/2014.3.1119/js/jquery.min.js"></script>
+		<script src="http://cdn.kendostatic.com/2014.3.1119/js/kendo.all.min.js"></script>
+	</head>
 
-<!-- NOTE: Leave the styles here as Kendo will do funny things with a css class -->
-<div class="chart-wrapper" style="height: 100%; min-height: 100%; width: 100%;">
-     <div id="chart" style="height: 100%; min-height: 100%; width: 100%;"> </div>
-</div>
+	<body>
 
-<script>
-	$(function ()
-	{
-		$("#chart").kendoChart
-			({
-				legend: { visible: true },
+		<!-- NOTE: Leave the styles here as Kendo will do funny things with a css class -->
+		<div class="chart-wrapper" style="height: 100%; min-height: 100%; width: 100%;">
+			 <div id="chart" style="height: 100%; min-height: 100%; width: 100%;"> </div>
+		</div>
 
-				seriesDefaults: { opacity: .7 },
+		<script>
 
-				series: [{ type: "line", data: [11341.520000, 14677.030000, 0.810000, 27.910000, 4092.410000, 4092.410000, 4115.850000, 6479.210000, 6479.210000, 6482.850000], color: "#005984", line: { width: 5, style: "smooth" } },
-					{ type: "area", data: [1141.520000, 1477.030000, 500.80000, 927.910000, 402.410000, 4992.410000, 6115.850000, 8479.210000, 5479.210000, 5482.850000], color: "#FF5984", line: { width: 5, style: "smooth" } }],
+			function construct(SerieData1, SerieData2, CategoryData)
+			{
+				$("#chart").kendoChart
+					({
+						legend: { visible: true },
 
-				valueAxis:
-					{
-						title: { text: "Value" },
-						labels: { format: "{0}" },
-						line: { visible: false }
-					},
+						seriesDefaults: { opacity: .7 },
 
-				categoryAxis:
-					{
-						categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct"],
-						majorGridLines: { visible: false }
-					},
+						series: [{ type: "line", data: SerieData1, color: "#005984", line: { width: 5, style: "smooth" } },
+							{ type: "area", data: SerieData2, color: "#FF5984", line: { width: 5, style: "smooth" } },],
 
-				tooltip: { visible: true, format: "{0:C0}", template: " #= value #" }
-			});
-	});
+						valueAxis:
+							{
+								title: { text: "Value" },
+								labels: { format: "{0}" },
+								line: { visible: true }
+							},
 
- $(window).on("resize", function() {    kendo.resize($(".chart-wrapper"));  });
-</script>
-</body>
+						categoryAxis:
+							{
+								categories: CategoryData,
+								majorGridLines: { visible: false }
+							},
+
+						tooltip: { visible: true, format: "{0:C0}", template: " #= value #" }
+					});
+			}
+
+			$(window).on("resize", function() {    kendo.resize($(".chart-wrapper"));  });
+		</script>
+	</body>
 </html>
