@@ -2,7 +2,7 @@
 /* Login Codes */
 $servername = "localhost";
 $username = "root";
-$password = "";
+$password = "weerstation";
 $dbname = "dummyweatherstation";
 
 /* Required Graph pictures/codes */
