@@ -3,7 +3,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "weatherr";
+$dbname = "dummyweatherstation";
 
 /* Required Graph pictures/codes */
 require_once ('src/jpgraph.php');
