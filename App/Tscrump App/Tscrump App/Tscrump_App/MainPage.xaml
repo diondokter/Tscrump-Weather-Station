@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Tscrump_App"
+             x:Class="Tscrump_App.MainPage">
+
+	<ScrollView>
+
+		<StackLayout>
+
+				<StackLayout BackgroundColor="#00CCBB" Padding="5">
+					<Label Text="Tscrump Weather Station" FontSize="48" HorizontalTextAlignment="Center" TextColor="White"/>
+					<Label Text="Make Weather Stations great again!" FontSize="24" HorizontalTextAlignment="Center" TextColor="White"/>					
+				</StackLayout>
+
+			<Label x:Name="TestLabel"/>
+		</StackLayout>
+
+	</ScrollView>
+
+</ContentPage>
