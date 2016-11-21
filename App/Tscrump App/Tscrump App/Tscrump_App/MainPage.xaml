@@ -15,7 +15,6 @@
 				<Label Text="Make Weather Stations great again!" FontSize="24" HorizontalTextAlignment="Center" TextColor="White"/>
 			</StackLayout>
 
-			<WebView x:Name="ChartWebView" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
 			<Label x:Name="TestLabel"/>
 		</StackLayout>
 
