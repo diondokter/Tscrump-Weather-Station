@@ -5,6 +5,8 @@ $username = "weatherstation";
 $password = "weerstation";
 $dbname = "dummyweatherstation";
 
+echo "test test test";
+
 /* Required Graph pictures/codes */
 require_once ('src/jpgraph.php');
 require_once ('src/jpgraph_line.php');
