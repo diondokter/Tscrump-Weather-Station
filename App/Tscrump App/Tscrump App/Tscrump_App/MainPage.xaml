@@ -15,6 +15,7 @@
 				<Label Text="Make Weather Stations great again!" FontSize="24" HorizontalTextAlignment="Center" TextColor="White"/>
 			</StackLayout>
 
+			<local:FormsPlotView x:Name="Plot"/>
 			<Label x:Name="TestLabel"/>
 		</StackLayout>
 

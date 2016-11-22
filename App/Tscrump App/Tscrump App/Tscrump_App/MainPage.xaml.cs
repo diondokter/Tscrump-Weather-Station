@@ -1,4 +1,7 @@
-﻿using System;
+﻿using OxyPlot;
+using OxyPlot.Axes;
+using OxyPlot.Series;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -29,6 +32,26 @@ namespace Tscrump_App
 				}
 				TestLabel.Text += "\n";
 			}
+
+			Task.Factory.StartNew(async () =>
+			{
+				while (Plot.Model == null)
+				{
+					await Task.Delay(10);
+				}
+
+				Plot.Model.Axes.Add(new LinearAxis());
+				Plot.Model.Axes.Add(new LinearAxis() { Title = "Test" });
+
+				LineSeries a = new LineSeries();
+				a.Points.Add(new DataPoint(2, 2));
+				a.Points.Add(new DataPoint(3, 3));
+				a.Points.Add(new DataPoint(4, 4));
+				a.Points.Add(new DataPoint(5, 5));
+
+				Plot.Model.Series.Add(a);
+				Plot.Update();
+			});
 		}
 	}
 }
