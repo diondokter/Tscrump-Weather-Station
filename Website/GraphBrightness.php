@@ -1,7 +1,7 @@
 <?php
 /* Login Codes */
 $servername = "localhost";
-$username = "weatherstation";
+$username = "root";
 $password = "weerstation";
 $dbname = "dummyweatherstation";
 
