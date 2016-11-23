@@ -1,11 +1,9 @@
 <?php
 /* Login Codes */
 $servername = "localhost";
-$username = "root";
+$username = "weatherstation";
 $password = "weerstation";
 $dbname = "dummyweatherstation";
-
-echo "test test test";
 
 /* Required Graph pictures/codes */
 require_once ('src/jpgraph.php');
