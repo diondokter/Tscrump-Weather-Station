@@ -1,8 +1,8 @@
 <?php
 /* Login Codes */
 $servername = "localhost";
-$username = "root";
-$password = "";
+$username = "weatherstation";
+$password = "weerstation";
 $dbname = "weatherr";
 
 /* Required Graph pictures/codes */
