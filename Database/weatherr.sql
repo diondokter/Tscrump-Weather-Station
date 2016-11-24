@@ -4,7 +4,7 @@ CREATE DATABASE weatherr;
 USE weatherr;
 
 
-CREATE TABLE `sensor` (
+CREATE TABLE sensor (
   `Date` datetime NOT NULL,
   `Temperature` float DEFAULT NULL,
   `Pressure` float DEFAULT NULL,
@@ -14,7 +14,7 @@ CREATE TABLE `sensor` (
 )
 
 
-INSERT INTO `sensor` (`Date`, `Temperature`, `Pressure`, `Humidity`, `Brightness`) VALUES
+INSERT INTO sensor (`Date`, `Temperature`, `Pressure`, `Humidity`, `Brightness`) VALUES
 ('2016-01-16 18:00:00', 19, 1.005, 0.2, 0.6),
 ('2016-02-16 18:00:00', 13, 1.005, 0.2, 0.6),
 ('2016-03-16 18:00:00', 10, 1.005, 0.2, 0.6),
