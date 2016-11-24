@@ -10,4 +10,4 @@ These will return a value in mb (millibar) / hPa (hectoPascal)
 
 The only connections the chip needs is
 - (GND) to GND
-+ (VDD) to 3.3V (not 5!)
++ (VDD) to 3.3V (not 5V!)
