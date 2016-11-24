@@ -1,9 +1,9 @@
 <?php
 /* Login Codes */
 $servername = "localhost";
-$username = "root";
+$username = "weatherstation";
 $password = "weerstation";
-$dbname = "dummyweatherstation";
+$dbname = "weatherr";
 
 /* Required Graph pictures/codes */
 require_once ('src/jpgraph.php');
@@ -20,7 +20,7 @@ if ($conn->connect_error) {
 $y_axis = array();
 $x_axis = array();
 $index = 0;
-$sql = "SELECT * FROM dummysensorvalues group by Date";
+$sql = "SELECT * FROM sensor group by Date";
 /* Gets the result from the SQL Query, when none is given it triggers an error */
 $result = $conn->query($sql) or trigger_error($mysqli->error."[$sql]");
 
@@ -32,16 +32,18 @@ $x_axis[$index] = $row["Date"]; // Gives the x_axis the Time
 }
 
 /* Graph Settings */
-$graph = new Graph(1000,500); // Creates a new Graph with Width 1000 Pixels and Height 500 Pixels.
-$graph->img->SetMargin(40,40,40,40);  // Margin from the Sides, all 40.
+$graph = new Graph(1100,500); // Creates a new Graph with Width 1000 Pixels and Height 500 Pixels.
+$graph->img->SetMargin(60,0,40,40);  // Margin from the Sides, all 40.
 $graph->img->SetAntiAliasing();
 $graph->SetScale("textlin"); // Makes the Text Linear
 $graph->SetShadow();
-$graph->title->SetFont(FF_FONT1,FS_BOLD); // Sets the Font for the Title.
+$graph->title->Set('Pressure');
+$graph->title->SetFont(FF_ARIAL,FS_NORMAL,15);
 $graph->xaxis->SetTickLabels($x_axis); // Sets the Labels on the X-Axis
 $graph->yaxis->scale->SetAutoMin(0); // Sets the minimum Value to 0, not neccesarily needed.
 $graph->xaxis->SetTitle("Time(Hours) ->",'center');
-$graph->yaxis->SetTitle("Temperature(Celcius)", 'center');
+$graph->yaxis->title->SetMargin(10);
+$graph->yaxis->SetTitle("Pascal(Pa)", 'center');
 $graph->yscale->SetGrace(5); // Used to make the Graph a bit larger than the maximum Y value.
 
 /* Line Settings */
