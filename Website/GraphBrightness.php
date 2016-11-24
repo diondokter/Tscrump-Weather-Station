@@ -34,7 +34,7 @@ $x_axis[$index] = $row["Date"]; // Gives the x_axis the Time
 /* Graph Settings */
 $graph = new Graph(1000,500); // Creates a new Graph with Width 1000 Pixels and Height 500 Pixels.
 $graph->img->SetMargin(40,40,40,40);  // Margin from the Sides, all 40.
-$graph->img->SetAntiAliasing();
+
 $graph->SetScale("textlin"); // Makes the Text Linear
 $graph->SetShadow();
 $graph->title->SetFont(FF_FONT1,FS_BOLD); // Sets the Font for the Title.
