@@ -201,7 +201,7 @@ if (!defined('TTF_DIR')) {
             define('TTF_DIR', $sroot.'/fonts/');
         }
     } else {
-        define('TTF_DIR','/usr/share/fonts/truetype/');
+        define('TTF_DIR','/home/weerstation/Tscrump-Weather-Station/Website/src/fonts/');
     }
 }
 
