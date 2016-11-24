@@ -20,7 +20,7 @@ if ($conn->connect_error) {
 $y_axis = array();
 $x_axis = array();
 $index = 0;
-$sql = "SELECT * FROM sensor group by Date";
+$sql = "SELECT * FROM dummysensorvalues group by Date";
 /* Gets the result from the SQL Query, when none is given it triggers an error */
 $result = $conn->query($sql) or trigger_error($mysqli->error."[$sql]");
 
