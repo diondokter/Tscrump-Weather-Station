@@ -106,6 +106,20 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
+    <None Include="Syncfusion.SfChart.UWP\3D\ChartArea\Themes\SfChart3D.xbf" />
+    <None Include="Syncfusion.SfChart.UWP\3D\ChartSeries\Themes\ChartSeries.xbf" />
+    <None Include="Syncfusion.SfChart.UWP\ChartArea\Themes\ChartArea.xbf" />
+    <None Include="Syncfusion.SfChart.UWP\ChartAxis\Themes\ChartAxis.xbf" />
+    <None Include="Syncfusion.SfChart.UWP\ChartSeries\Themes\ChartSeries.xbf" />
+    <None Include="Syncfusion.SfChart.UWP\Controls\Themes\ChartToolBar.xbf" />
+    <None Include="Syncfusion.SfChart.UWP\Controls\Themes\ResizableScrollBar.xbf" />
+    <None Include="Syncfusion.SfChart.UWP\Controls\Themes\Resizer.xbf" />
+    <None Include="Syncfusion.SfChart.UWP\Controls\Themes\SfRangeNavigator.xbf" />
+    <None Include="Syncfusion.SfChart.UWP\Sparkline\Themes\Sparkline.xbf" />
+    <None Include="Syncfusion.SfChart.UWP\Themes\Generic.Common.xbf" />
+    <None Include="Syncfusion.SfChart.UWP\Themes\Generic.Legend.xbf" />
+    <None Include="Syncfusion.SfChart.UWP\Themes\Generic.Symbol.xbf" />
+    <None Include="Syncfusion.SfChart.UWP\Themes\generic.xbf" />
     <None Include="Windows_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
@@ -117,6 +131,9 @@
     <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
     <Content Include="Assets\StoreLogo.png" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
+    <Content Include="Syncfusion.SfChart.UWP\Properties\Syncfusion.SfChart.UWP_2015.rd.xml" />
+    <Content Include="Syncfusion.SfChart.UWP\Syncfusion.SfChart.UWP.xml" />
+    <Content Include="Syncfusion.SfChart.UWP\Syncfusion.SfChart.UWP.xr.xml" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -124,6 +141,62 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="MainPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Syncfusion.SfChart.UWP\3D\ChartArea\Themes\SfChart3D.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Syncfusion.SfChart.UWP\3D\ChartSeries\Themes\ChartSeries.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Syncfusion.SfChart.UWP\ChartArea\Themes\ChartArea.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Syncfusion.SfChart.UWP\ChartAxis\Themes\ChartAxis.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Syncfusion.SfChart.UWP\ChartSeries\Themes\ChartSeries.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Syncfusion.SfChart.UWP\Controls\Themes\ChartToolBar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Syncfusion.SfChart.UWP\Controls\Themes\ResizableScrollBar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Syncfusion.SfChart.UWP\Controls\Themes\Resizer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Syncfusion.SfChart.UWP\Controls\Themes\SfRangeNavigator.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Syncfusion.SfChart.UWP\Sparkline\Themes\Sparkline.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Syncfusion.SfChart.UWP\Themes\Generic.Common.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Syncfusion.SfChart.UWP\Themes\Generic.Legend.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Syncfusion.SfChart.UWP\Themes\Generic.Symbol.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Syncfusion.SfChart.UWP\Themes\generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -141,7 +214,17 @@
     <Reference Include="MySql.Data.RT">
       <HintPath>..\..\packages\mysql-connector-net-6.7.9-noinstall\RT\MySql.Data.RT.dll</HintPath>
     </Reference>
+    <Reference Include="Syncfusion.SfChart.UWP">
+      <HintPath>..\..\packages\Syncfusion\Uwp\Syncfusion.SfChart.UWP.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.SfChart.XForms">
+      <HintPath>..\..\packages\Syncfusion\Uwp\Syncfusion.SfChart.XForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.SfChart.XForms.UWP">
+      <HintPath>..\..\packages\Syncfusion\Uwp\Syncfusion.SfChart.XForms.UWP.dll</HintPath>
+    </Reference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

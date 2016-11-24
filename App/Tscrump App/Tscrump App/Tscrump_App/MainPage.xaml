@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:Tscrump_App"
+			 xmlns:chart="clr-namespace:Syncfusion.SfChart.XForms;assembly=Syncfusion.SfChart.XForms"
              x:Class="Tscrump_App.MainPage"
 			 HeightRequest="100000000"
 			 WidthRequest="100000000">
@@ -15,6 +16,7 @@
 				<Label Text="Make Weather Stations great again!" FontSize="24" HorizontalTextAlignment="Center" TextColor="White"/>
 			</StackLayout>
 
+			<chart:SfChart x:Name="ChartView" HeightRequest="400" WidthRequest="400" Margin="5"/>
 			<Label x:Name="TestLabel"/>
 		</StackLayout>
 
