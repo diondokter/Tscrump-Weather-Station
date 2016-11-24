@@ -42,8 +42,8 @@ $graph->title->Set('Humidity');
 $graph->xaxis->SetTickLabels($x_axis); // Sets the Labels on the X-Axis
 $graph->yaxis->scale->SetAutoMin(0); // Sets the minimum Value to 0, not neccesarily needed.
 $graph->xaxis->SetTitle("Time(Hours) ->",'center');
-$graph->yaxis->SetTitle("Percentage(%)", 'center');
 $graph->yaxis->title->SetMargin(20);
+$graph->yaxis->SetTitle("Percentage(%)", 'center');
 $graph->yscale->SetGrace(5); // Used to make the Graph a bit larger than the maximum Y value.
 
 /* Line Settings */
