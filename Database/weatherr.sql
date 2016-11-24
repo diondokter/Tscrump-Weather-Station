@@ -1,23 +1,16 @@
-CREATE DATABASE IF NOT EXISTS `weatherr` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `weatherr`;
+CREATE DATABASE weatherr;
+USE weatherr;
 
--- --------------------------------------------------------
-
---
--- Tabelstructuur voor tabel `sensor`
---
 
 CREATE TABLE `sensor` (
   `Date` datetime NOT NULL,
   `Temperature` float DEFAULT NULL,
   `Pressure` float DEFAULT NULL,
   `Humidity` float DEFAULT NULL,
-  `Brightness` float DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `Brightness` float DEFAULT NULL,
+   primary key(Date)
+)
 
---
--- Gegevens worden geëxporteerd voor tabel `sensor`
---
 
 INSERT INTO `sensor` (`Date`, `Temperature`, `Pressure`, `Humidity`, `Brightness`) VALUES
 ('2016-01-16 18:00:00', 19, 1.005, 0.2, 0.6),
@@ -32,17 +25,3 @@ INSERT INTO `sensor` (`Date`, `Temperature`, `Pressure`, `Humidity`, `Brightness
 ('2016-11-17 19:00:00', 19, 0.986, 0.4, 0.5),
 ('2016-11-17 20:00:00', 18, 0.975, 0.33, 0.4),
 ('2016-11-17 21:00:00', 15, 0.983, 0.2556, 0.3);
-
---
--- Indexen voor geëxporteerde tabellen
---
-
---
--- Indexen voor tabel `sensor`
---
-ALTER TABLE `sensor`
-  ADD PRIMARY KEY (`Date`);
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
