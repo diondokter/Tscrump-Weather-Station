@@ -1,3 +1,5 @@
+DROP Database weatherr;
+
 CREATE DATABASE weatherr;
 USE weatherr;
 
