@@ -1363,7 +1363,7 @@ class Image {
         // Dashed line does not work with anti-alias enabled. This
         // is a limitation in GD.
         if( $this->use_anti_aliasing ) {
-//            JpGraphError::RaiseL(25129); // Anti-alias can not be used with dashed lines. Please disable anti-alias or use solid lines.
+//            //JpGraphError::RaiseL(25129); // Anti-alias can not be used with dashed lines. Please disable anti-alias or use solid lines.
         }
         
         $x1 = round($x1);
