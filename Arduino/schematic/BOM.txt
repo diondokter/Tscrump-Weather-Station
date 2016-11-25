@@ -1,0 +1,9 @@
+1667759 - 2x10 1.27 pin header for programming the chip
+2409248 - ATSAMD21G18A-AU, microcontroller
+2396053 - Tactile Switch(reset)
+2293836 - Micro-USB
+2101354 - Crystal 32.xx kHz
+1685767 - DC-DC converter
+2543267 - power inductor
+1328308 - Red 0603 SMD LED
+8660417 - Schottky diode
