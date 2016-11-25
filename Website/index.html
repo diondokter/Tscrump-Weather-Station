@@ -18,7 +18,8 @@
 		<link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 		<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
 		<link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
-		<link rel="stylesheet" type="text/css" href="imageshow.css" />
+		<link rel="stylesheet" type="text/css" href="imageshowPC.css" media="only screen and (min-device-width: 800px)" />
+		<link rel="stylesheet" type="text/css" href="imageshowMobile.css" media="only screen and (max-device-width: 800px)" />
 
 		<title>Tscrump Weather Station - Make Weathers Stations Great Again!</title>
 
@@ -88,12 +89,12 @@
 			<center>
 			<div id="slideshow">
 	<ul>
-      	<div id="ImageShow">
+      	<div id="ImageShow" style="width: 100%;height:100%">
 	<ul>
-      	<li><img src="GraphTemperature.php" width="1000" height="500" /></li>
-            <li><img src="GraphBrightness.php" width="1000" height="500" /></li>
-            <li><img src="GraphHumidity.php" width="1000" height="500" /></li>
-			<li><img src="GraphPressure.php" width="1000" height="500" /></li>
+      	<li><img src="GraphTemperature.php"  /></li>
+            <li><img src="GraphBrightness.php"  /></li>
+            <li><img src="GraphHumidity.php"  /></li>
+			<li><img src="GraphPressure.php"  /></li>
       </ul>
       <span class="button prevButton"></span>
       <span class="button nextButton"></span>
