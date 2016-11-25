@@ -40,17 +40,19 @@ namespace Tscrump_App
 			DateTimeAxis primaryAxis = new DateTimeAxis() { Minimum = Models.Select((m) => m.Time).Min(), Maximum = Models.Select((m) => m.Time).Max() };
 			ChartView.PrimaryAxis = primaryAxis;
 
-			NumericalAxis secondaryAxis = new NumericalAxis() { Minimum = 0, Maximum = 25 };
-			ChartView.SecondaryAxis = secondaryAxis;
+			//NumericalAxis secondaryAxis = new NumericalAxis() {  };
+			//ChartView.SecondaryAxis = secondaryAxis;
 
+			NumericalAxis LineAxis1 = new NumericalAxis() { Title = new ChartAxisTitle() { Text = "Temperature (C)", TextColor = Color.Blue } };
+			NumericalAxis LineAxis2 = new NumericalAxis() { Title = new ChartAxisTitle() { Text = "Pressure (bar)", TextColor = Color.Red } };
 
-			LineSeries Line = new LineSeries() { XAxis = primaryAxis, YAxis = secondaryAxis, Color = Color.Blue };
+			LineSeries Line = new LineSeries() { XAxis = primaryAxis, YAxis = LineAxis1, Color = Color.Blue };
 			Line.SetBinding(ChartSeries.ItemsSourceProperty, "Data");
 			Line.XBindingPath = "Time";
 			Line.YBindingPath = "Temperature";
 			ChartView.Series.Add(Line);
 
-			LineSeries Line2 = new LineSeries() { XAxis = primaryAxis, YAxis = secondaryAxis, Color = Color.Red };
+			LineSeries Line2 = new LineSeries() { XAxis = primaryAxis, YAxis = LineAxis2, Color = Color.Red };
 			Line2.SetBinding(ChartSeries.ItemsSourceProperty, "Data");
 			Line2.XBindingPath = "Time";
 			Line2.YBindingPath = "Pressure";
