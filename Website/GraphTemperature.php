@@ -1,8 +1,8 @@
 <?php
 /* Login Codes */
 $servername = "localhost";
-$username = "root";
-$password = "";
+$username = "weatherstation";
+$password = "weerstation";
 $dbname = "weatherr";
 
 /* Required Graph pictures/codes */
@@ -43,7 +43,6 @@ $graph->xaxis->SetTitle("Time(Hours) ->",'center');
 $graph->yaxis->SetTitle("Temperature(Celcius)", 'center');
 $graph->title->Set('Temperature');
 $graph->yaxis->title->SetMargin(20);
-$graph->title->SetFont(FF_ARIAL,FS_NORMAL,15);
 $graph->yscale->SetGrace(5); // Used to make the Graph a bit larger than the maximum Y value.
 
 /* Line Settings */

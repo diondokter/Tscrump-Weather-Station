@@ -85,5 +85,27 @@ namespace Tscrump_App.UWP
 			Connection.Dispose();
 			Connection = null;
 		}
+
+		public List<object> ExecuteReader(string Query, int Column)
+		{
+			MySqlCommand Command = Connection.CreateCommand();
+			Command.Prepare();
+			Command.CommandText = Query;
+			MySqlDataReader Reader = Command.ExecuteReader();
+
+			List<object> Data = new List<object>();
+
+			while (Reader.Read())
+			{
+				object Row = new object[Reader.FieldCount];
+				Row = Reader.GetValue(Column);
+				Data.Add(Row);
+			}
+
+			Reader.Close();
+			Reader.Dispose();
+
+			return Data;
+		}
 	}
 }

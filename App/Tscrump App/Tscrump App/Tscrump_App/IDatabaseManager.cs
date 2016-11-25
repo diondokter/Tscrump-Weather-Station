@@ -10,6 +10,7 @@ namespace Tscrump_App
 	{
 		void ExecuteNonQuery(string Query);
 		List<object[]> ExecuteReader(string Query);
+		List<object> ExecuteReader(string Query, int Column);
 		object ExecuteScaler(string Query);
 	}
 }
