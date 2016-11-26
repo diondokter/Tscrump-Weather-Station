@@ -1,25 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-	
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="description" content="Site for Project Group The Tscrumps">
 		<meta name="author" content="Tycho Kamphuis">
+		
 		<!-- Bootstrap Core CSS -->
-		<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+		<link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
 		<!-- Theme CSS -->
-		<link href="css/freelancer.min.css" rel="stylesheet">
-		<link rel="icon" href="img/profile.png">
+		<link href="../css/freelancer.min.css" rel="stylesheet">
+		<link rel="icon" href="../img/profile.png">
 
 		<!-- Custom Fonts -->
-		<link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+		<link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 		<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
 		<link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
-		<link rel="stylesheet" type="text/css" href="imageshowPC.css" media="only screen and (min-device-width: 800px)" />
-		<link rel="stylesheet" type="text/css" href="imageshowMobile.css" media="only screen and (max-device-width: 800px)" />
+		<link rel="stylesheet" type="text/css" href="../css/imageshowPC.css" media="only screen and (min-device-width: 800px)" />
+		<link rel="stylesheet" type="text/css" href="../css/imageshowMobile.css" media="only screen and (max-device-width: 800px)" />
 
 		<title>Tscrump Weather Station - Make Weathers Stations Great Again!</title>
 
@@ -74,7 +74,7 @@
 			</div>
 		</header>
 
-		<!-- weather Grid Section -->
+		<!-- Graph's section. -->
 		<section id="weather">
 			<div class="container">
 				<div class="row">
@@ -88,19 +88,19 @@
 			<br>
 			<center>
 			<div id="slideshow">
-	<ul>
-      	<div id="ImageShow" style="width: 100%;height:100%">
-	<ul>
-      	<li><img src="GraphTemperature.php"  /></li>
-            <li><img src="GraphBrightness.php"  /></li>
-            <li><img src="GraphHumidity.php"  /></li>
-			<li><img src="GraphPressure.php"  /></li>
-      </ul>
-      <span class="button prevButton"></span>
-      <span class="button nextButton"></span>
-</div>
+				<ul>
+					<div id="ImageShow" style="width: 100%;height:100%">
+				<ul>
+					<li><img src="Graphs/GraphTemperature.php"  /></li>
+					<li><img src="Graphs/GraphBrightness.php"  /></li>
+					<li><img src="Graphs/GraphHumidity.php"  /></li>
+					<li><img src="Graphs/GraphPressure.php"  /></li>
+				</ul>
+			<span class="button prevButton"></span>
+		<span class="button nextButton"></span>
+	</div>
 </center>
-<script src="js/jquery-1.4.2.min.js"></script>
+<script src="../js/jquery-1.4.2.min.js"></script>
 	<script>
 		$(window).load(function(){
 				var pages = $('#ImageShow li'), current=0;
@@ -129,7 +129,6 @@
 				});
 		});
 	</script>
-</center>
 </section>
 
 		<!-- About Section -->
@@ -179,28 +178,14 @@
 					</div>
 				</div>
 			</div>
+			<br>				
 			<br>
-							
-			<br>
-			<br>
-					
+			<br>		
 		</section>
 		
 
 		<!-- Footer -->
 		<footer class="text-center">
-			<div class="footer-above">
-				<div class="container">
-					<div class="row">
-						<div class="footer-col col-md-4">	
-						</div>
-						<div class="footer-col col-md-4">
-						</div>
-						<div class="footer-col col-md-4">
-						</div>
-					</div>
-				</div>
-			</div>
 			<div class="footer-below">
 				<div class="container">
 					<div class="row">
@@ -214,28 +199,17 @@
 			</div>
 		</footer>
 
-		<!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
-		<div class="scroll-top page-scroll hidden-sm hidden-xs hidden-lg hidden-md">
-			<a class="btn btn-primary" href="#page-top">
-				<i class="fa fa-chevron-up"></i>
-			</a>
-		</div>
-
 		<!-- jQuery -->
-		<script src="vendor/jquery/jquery.min.js"></script>
+		<script src="../vendor/jquery/jquery.min.js"></script>
 
-		<!-- Bootstrap Core JavaScript -->
-		<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+		<!-- The TopBarGlider for which section you are on.  -->
+		<script src="../js/TopBarGlider.js"></script>
 
 		<!-- Plugin JavaScript -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
 
-		<!-- Contact Form JavaScript -->
-		<script src="js/jqBootstrapValidation.js"></script>
-		<script src="js/contact_me.js"></script>
-
 		<!-- Theme JavaScript -->
-		<script src="js/freelancer.min.js"></script>
+		<script src="../js/Theme.js"></script>
 
 	</body>
 </html>
