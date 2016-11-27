@@ -1,6 +1,7 @@
 ﻿using Syncfusion.SfChart.XForms;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,11 +12,63 @@ namespace Tscrump_App
 {
 	public partial class ChartPage : ContentPage
 	{
+		StackingAreaSeries TemperatureSeries;
+		LineSeries PressureSeries;
+
 		public ChartPage()
 		{
 			InitializeComponent();
 
-			var Values = DatabaseManager.Instance.ExecuteReader($"Select Date,Temperature,Pressure from dummysensorvalues");
+			StartDatePicker.Date = DateTime.Today.AddDays(-7);
+			EndDatePicker.Date = DateTime.Today;
+
+			StartDatePicker.DateSelected += Update;
+			EndDatePicker.DateSelected += Update;
+
+			ChartView.PrimaryAxis = new DateTimeAxis() { LabelsIntersectAction = AxisLabelsIntersectAction.Hide, EdgeLabelsDrawingMode = EdgeLabelsDrawingMode.Hide, LabelStyle = new ChartAxisLabelStyle() { LabelFormat = CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern + " - " + CultureInfo.CurrentCulture.DateTimeFormat.ShortTimePattern } };
+
+			NumericalAxis TemperatureAxis = new NumericalAxis() { Title = new ChartAxisTitle() { Text = "Temperature (C)", TextColor = Color.Blue }, RangePadding = NumericalPadding.Additional };
+
+			TemperatureSeries = new StackingAreaSeries() { YAxis = TemperatureAxis, Color = Color.Blue, Opacity = 0.5 };
+			TemperatureSeries.SetBinding(ChartSeries.ItemsSourceProperty, nameof(DataPointCollection.Data));
+			TemperatureSeries.XBindingPath = nameof(DataPoint.Time);
+			TemperatureSeries.YBindingPath = nameof(DataPoint.Temperature);
+
+			ChartView.Series.Add(TemperatureSeries);
+
+
+			NumericalAxis PressureAxis = new NumericalAxis() { Title = new ChartAxisTitle() { Text = "Pressure (bar)", TextColor = Color.Red }, RangePadding = NumericalPadding.Additional };
+
+			PressureSeries = new LineSeries() {YAxis = PressureAxis, Color = Color.Red };
+			PressureSeries.SetBinding(ChartSeries.ItemsSourceProperty, nameof(DataPointCollection.Data));
+			PressureSeries.XBindingPath = nameof(DataPoint.Time);
+			PressureSeries.YBindingPath = nameof(DataPoint.Pressure);
+
+			ChartView.Series.Add(PressureSeries);
+
+			SizeChanged += ChartViewSizer;
+		}
+
+		protected override void OnSizeAllocated(double width, double height)
+		{
+			base.OnSizeAllocated(width, height);
+			ChartViewSizer(null, null);
+			Update();
+		}
+
+		private void ChartViewSizer(object s, EventArgs e)
+		{
+			ChartView.HeightRequest = this.Height - ChartView.Margin.VerticalThickness;
+		}
+
+		private void Update(object s, EventArgs e)
+		{
+			Update();
+		}
+
+		public void Update()
+		{
+			var Values = DatabaseManager.Instance.ExecuteReader($"Select Date,Temperature,Pressure from dummysensorvalues where Date >= {StartDatePicker.Date.ToSQLString()} and Date <= {EndDatePicker.Date.AddHours(11.99999).ToSQLString()}");
 
 			DataPoint[] Models = new DataPoint[Values.Count];
 			for (int i = 0; i < Values.Count; i++)
@@ -25,41 +78,30 @@ namespace Tscrump_App
 
 			this.BindingContext = new DataPointCollection(Models);
 
-			DateTimeAxis primaryAxis = new DateTimeAxis() { Minimum = Models.Select((m) => m.Time).Min(), Maximum = Models.Select((m) => m.Time).Max(), IntervalType = DateTimeIntervalType.Days, Interval = 1, LabelsIntersectAction = AxisLabelsIntersectAction.Hide, EdgeLabelsDrawingMode = EdgeLabelsDrawingMode.Hide, MinorTicksPerInterval = 12 };
-			ChartView.PrimaryAxis = primaryAxis;
+			((DateTimeAxis)ChartView.PrimaryAxis).Minimum = StartDatePicker.Date;
+			((DateTimeAxis)ChartView.PrimaryAxis).Maximum = EndDatePicker.Date.AddHours(11.999999);
 
-			//NumericalAxis secondaryAxis = new NumericalAxis() {  };
-			//ChartView.SecondaryAxis = secondaryAxis;
+			TemperatureSeries.IsVisible = TemperatureSwitch.IsToggled;
+			TemperatureSeries.YAxis.IsVisible = TemperatureSwitch.IsToggled;
 
-			NumericalAxis LineAxis1 = new NumericalAxis() { Title = new ChartAxisTitle() { Text = "Temperature (C)", TextColor = Color.Blue } };
-			NumericalAxis LineAxis2 = new NumericalAxis() { Title = new ChartAxisTitle() { Text = "Pressure (bar)", TextColor = Color.Red } };
+			PressureSeries.IsVisible = PressureSwitch.IsToggled;
+			PressureSeries.YAxis.IsVisible = PressureSwitch.IsToggled;
 
-			StackingAreaSeries Line = new StackingAreaSeries() { XAxis = primaryAxis, YAxis = LineAxis1, Color = Color.Blue, Opacity = 0.5 };
-			Line.SetBinding(ChartSeries.ItemsSourceProperty, nameof(DataPointCollection.Data));
-			Line.XBindingPath = nameof(DataPoint.Time);
-			Line.YBindingPath = nameof(DataPoint.Temperature);
-			ChartView.Series.Add(Line);
-
-			LineSeries Line2 = new LineSeries() { XAxis = primaryAxis, YAxis = LineAxis2, Color = Color.Red };
-			Line2.SetBinding(ChartSeries.ItemsSourceProperty, nameof(DataPointCollection.Data));
-			Line2.XBindingPath = nameof(DataPoint.Time);
-			Line2.YBindingPath = nameof(DataPoint.Pressure);
-
-			ChartView.Series.Add(Line2);
-
-			Task.Run(() => ChartViewSizer());
-		}
-
-		private void ChartViewSizer()
-		{
-			while (true)
+			if (Models.Length> 0)
 			{
-				Device.BeginInvokeOnMainThread(() =>
-				{
-					ChartView.HeightRequest = ChartView.Width * 7/16;
-				});
+				float MinimumTemperature = Models.Min((x) => x.Temperature);
+				float MaximumTemperature = Models.Max((x) => x.Temperature);
+				float DeltaTemperature = MaximumTemperature - MinimumTemperature;
+				((NumericalAxis)TemperatureSeries.YAxis).Minimum = MinimumTemperature - DeltaTemperature / 20;
+				((NumericalAxis)TemperatureSeries.YAxis).Maximum = MaximumTemperature + DeltaTemperature / 20;
+				((NumericalAxis)TemperatureSeries.YAxis).Interval = DeltaTemperature / ChartView.HeightRequest * 20;
 
-				Task.Delay(100).Wait();
+				float MinimumPressure = Models.Min((x) => x.Pressure);
+				float MaximumPressure = Models.Max((x) => x.Pressure);
+				float DeltaPressure = MaximumPressure - MinimumPressure;
+				((NumericalAxis)PressureSeries.YAxis).Minimum = MinimumPressure - DeltaPressure / 20;
+				((NumericalAxis)PressureSeries.YAxis).Maximum = MaximumPressure + DeltaPressure / 20;
+				((NumericalAxis)PressureSeries.YAxis).Interval = DeltaPressure / ChartView.HeightRequest * 20;
 			}
 		}
 
