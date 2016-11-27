@@ -66,9 +66,14 @@ namespace Tscrump_App
 			Update();
 		}
 
-		public void Update()
+		public async void Update()
 		{
-			var Values = DatabaseManager.Instance.ExecuteReader($"Select Date,Temperature,Pressure from dummysensorvalues where Date >= {StartDatePicker.Date.ToSQLString()} and Date <= {EndDatePicker.Date.AddHours(11.99999).ToSQLString()}");
+			if (await DatabaseManager.GetInstance() == null)
+			{
+				return;
+			}
+
+			var Values = (await DatabaseManager.GetInstance()).ExecuteReader($"Select Date,Temperature,Pressure from dummysensorvalues where Date >= {StartDatePicker.Date.ToSQLString()} and Date <= {EndDatePicker.Date.AddHours(11.99999).ToSQLString()}");
 
 			DataPoint[] Models = new DataPoint[Values.Count];
 			for (int i = 0; i < Values.Count; i++)
@@ -87,7 +92,7 @@ namespace Tscrump_App
 			PressureSeries.IsVisible = PressureSwitch.IsToggled;
 			PressureSeries.YAxis.IsVisible = PressureSwitch.IsToggled;
 
-			if (Models.Length> 0)
+			if (Models.Length > 0)
 			{
 				float MinimumTemperature = Models.Min((x) => x.Temperature);
 				float MaximumTemperature = Models.Max((x) => x.Temperature);
