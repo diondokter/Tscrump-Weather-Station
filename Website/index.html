@@ -18,6 +18,8 @@
 		<link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 		<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
 		<link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+		<link rel="stylesheet" type="text/css" href="imageshowPC.css" media="only screen and (min-device-width: 800px)" />
+		<link rel="stylesheet" type="text/css" href="imageshowMobile.css" media="only screen and (max-device-width: 800px)" />
 
 		<title>Tscrump Weather Station - Make Weathers Stations Great Again!</title>
 
@@ -85,32 +87,50 @@
 			<br>
 			<br>
 			<center>
-				<h5>Temperature</h5>
-					<img src="GraphTemperature.php" scale="0" align="middle">
-					</img>
-			</center> <!-- Temperature Image -->
-			<br>
-			<br>
-			<center>
-				<h5>Humidity</h5>
-					<img src="GraphHumidity.php" scale="0" align="middle">
-					</img>
-			</center> <!-- Temperature Image -->
-			<br>
-			<br>
-			<center>
-				<h5>Brightness</h5>
-					<img src="GraphBrightness.php" scale="0" align="middle">
-					</img>
-			</center> <!-- Temperature Image -->
-			<br>
-			<br>
-			<center>
-				<h5>Pressure</h5>
-					<img src="GraphPressure.php" scale="0" align="middle">
-					</img>
-			</center> <!-- Temperature Image -->
-		</section>
+			<div id="slideshow">
+	<ul>
+      	<div id="ImageShow" style="width: 100%;height:100%">
+	<ul>
+      	<li><img src="GraphTemperature.php"  /></li>
+            <li><img src="GraphBrightness.php"  /></li>
+            <li><img src="GraphHumidity.php"  /></li>
+			<li><img src="GraphPressure.php"  /></li>
+      </ul>
+      <span class="button prevButton"></span>
+      <span class="button nextButton"></span>
+</div>
+</center>
+<script src="js/jquery-1.4.2.min.js"></script>
+	<script>
+		$(window).load(function(){
+				var pages = $('#ImageShow li'), current=0;
+				var currentPage,nextPage;
+
+				$('#ImageShow .button').click(function(){
+					currentPage= pages.eq(current);
+					if($(this).hasClass('prevButton'))
+					{
+
+						if (current <= 0)
+							current=pages.length-1;
+						else
+							current=current-1;
+					}
+					else
+					{
+						if (current >= pages.length-1)
+							current=0;
+						else
+							current=current+1;
+					}
+					nextPage = pages.eq(current);	
+					currentPage.hide();	
+					nextPage.show();		
+				});
+		});
+	</script>
+</center>
+</section>
 
 		<!-- About Section -->
 		<section class="success" id="about">
@@ -129,9 +149,9 @@
 						Humidity Sensor and a large scale Data Network. </p>
 					</div>
 					<div class="col-lg-4">
-						<p> Wether you are a granny or a little kid, everyone likes this weather station.
+						<p> Wether you are a granny or a little kid, everyone likes this wether station.
 						Control it at home or do it while being abroad.
-						You can check the weather in your home town using the LORA network. </p>
+						You can check the wether in your home town using the LORA network. </p>
 					</div>
 				</div>
 			</div>

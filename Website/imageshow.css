@@ -1,0 +1,63 @@
+*{
+	margin:0;
+	padding:0;
+}
+
+#ImageShow{
+	width:1250px;
+	height:500px;
+	position:relative;
+	
+}
+
+#ImageShow .prevButton{
+	height:72px;
+	width:68px;
+	position:absolute;
+	background:url('../img/buttons.png') no-repeat;
+	top:50%;
+	margin-top:-36px;
+	cursor:pointer;
+	z-index:2000;
+	background-position:left top;
+	left:0px;
+	
+	
+}
+
+#ImageShow .prevButton:hover{ background-position:left bottom;left:0;}
+
+#ImageShow .nextButton{
+	height:72px;
+	width:68px;
+	position:absolute;
+	background:url('../img/buttons.png') no-repeat;
+	top:50%;
+	margin-top:-36px;
+	cursor:pointer;
+	z-index:2000;
+	background-position:right top;
+	right:0
+}
+
+#ImageShow .nextButton:hover{background-position:right bottom;right:0;}
+
+#ImageShow ul{
+	width:1100px;
+	height:500px;
+	list-style:none outside none;
+	position:relative;
+	overflow:hidden;
+}
+
+#ImageShow li:first-child{
+	display:list-item;
+	position:absolute;
+}
+
+#ImageShow li{
+	position:absolute;
+	display:none;
+}
+
+
