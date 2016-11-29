@@ -1,6 +1,6 @@
 <?php
 $servername = "localhost";
-$username = "weatherstation";
-$password = "weerstation";
+$username = "root";
+$password = "";
 $dbname = "weatherr";
 ?>
