@@ -44,6 +44,8 @@
 
 			</Grid>
 
+			<Button x:Name="AdvancedOptionsButton" Text="Advanced options"/>
+			
 		</StackLayout>
 
 	</ScrollView>
