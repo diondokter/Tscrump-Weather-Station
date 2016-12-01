@@ -45,12 +45,15 @@ $graph->yscale->SetGrace(5); // Used to make the Graph a bit larger than the max
 
 /* Line Settings */
 $p1 = new LinePlot($y_axis);
-$p1->mark->SetType(MARK_FILLEDCIRCLE);
-$p1->mark->SetFillColor("red");
-$p1->mark->SetWidth(3);
+
+$p1->mark->SetType(MARK_SQUARE);
+$p1->mark->SetFillColor("darkblue");
+$p1->mark->SetWidth(5);
 $p1->SetColor("blue");
 $p1->SetCenter();
 
+
 $graph->Add($p1);
+$p1->value->Show();
 $graph->Stroke();
 ?>
