@@ -309,6 +309,56 @@ Source: WE-TPC 744053220.pdf</description>
 <vertex x="6" y="-3.35" curve="-90"/>
 </polygon>
 </package>
+<package name="BMP180_BREAKOUT">
+<wire x1="9.525" y1="2.54" x2="10.795" y2="2.54" width="0.1524" layer="21"/>
+<wire x1="10.795" y1="2.54" x2="11.43" y2="1.905" width="0.1524" layer="21"/>
+<wire x1="11.43" y1="1.905" x2="11.43" y2="0.635" width="0.1524" layer="21"/>
+<wire x1="11.43" y1="0.635" x2="10.795" y2="0" width="0.1524" layer="21"/>
+<wire x1="6.35" y1="1.905" x2="6.985" y2="2.54" width="0.1524" layer="21"/>
+<wire x1="6.985" y1="2.54" x2="8.255" y2="2.54" width="0.1524" layer="21"/>
+<wire x1="8.255" y1="2.54" x2="8.89" y2="1.905" width="0.1524" layer="21"/>
+<wire x1="8.89" y1="1.905" x2="8.89" y2="0.635" width="0.1524" layer="21"/>
+<wire x1="8.89" y1="0.635" x2="8.255" y2="0" width="0.1524" layer="21"/>
+<wire x1="8.255" y1="0" x2="6.985" y2="0" width="0.1524" layer="21"/>
+<wire x1="6.985" y1="0" x2="6.35" y2="0.635" width="0.1524" layer="21"/>
+<wire x1="9.525" y1="2.54" x2="8.89" y2="1.905" width="0.1524" layer="21"/>
+<wire x1="8.89" y1="0.635" x2="9.525" y2="0" width="0.1524" layer="21"/>
+<wire x1="10.795" y1="0" x2="9.525" y2="0" width="0.1524" layer="21"/>
+<wire x1="1.905" y1="2.54" x2="3.175" y2="2.54" width="0.1524" layer="21"/>
+<wire x1="3.175" y1="2.54" x2="3.81" y2="1.905" width="0.1524" layer="21"/>
+<wire x1="3.81" y1="1.905" x2="3.81" y2="0.635" width="0.1524" layer="21"/>
+<wire x1="3.81" y1="0.635" x2="3.175" y2="0" width="0.1524" layer="21"/>
+<wire x1="3.81" y1="1.905" x2="4.445" y2="2.54" width="0.1524" layer="21"/>
+<wire x1="4.445" y1="2.54" x2="5.715" y2="2.54" width="0.1524" layer="21"/>
+<wire x1="5.715" y1="2.54" x2="6.35" y2="1.905" width="0.1524" layer="21"/>
+<wire x1="6.35" y1="1.905" x2="6.35" y2="0.635" width="0.1524" layer="21"/>
+<wire x1="6.35" y1="0.635" x2="5.715" y2="0" width="0.1524" layer="21"/>
+<wire x1="5.715" y1="0" x2="4.445" y2="0" width="0.1524" layer="21"/>
+<wire x1="4.445" y1="0" x2="3.81" y2="0.635" width="0.1524" layer="21"/>
+<wire x1="1.27" y1="1.905" x2="1.27" y2="0.635" width="0.1524" layer="21"/>
+<wire x1="1.905" y1="2.54" x2="1.27" y2="1.905" width="0.1524" layer="21"/>
+<wire x1="1.27" y1="0.635" x2="1.905" y2="0" width="0.1524" layer="21"/>
+<wire x1="3.175" y1="0" x2="1.905" y2="0" width="0.1524" layer="21"/>
+<wire x1="12.065" y1="2.54" x2="13.335" y2="2.54" width="0.1524" layer="21"/>
+<wire x1="13.335" y1="2.54" x2="13.97" y2="1.905" width="0.1524" layer="21"/>
+<wire x1="13.97" y1="1.905" x2="13.97" y2="0.635" width="0.1524" layer="21"/>
+<wire x1="13.97" y1="0.635" x2="13.335" y2="0" width="0.1524" layer="21"/>
+<wire x1="12.065" y1="2.54" x2="11.43" y2="1.905" width="0.1524" layer="21"/>
+<wire x1="11.43" y1="0.635" x2="12.065" y2="0" width="0.1524" layer="21"/>
+<wire x1="13.335" y1="0" x2="12.065" y2="0" width="0.1524" layer="21"/>
+<pad name="1" x="2.54" y="1.27" drill="1.016" rot="R90"/>
+<pad name="2" x="5.08" y="1.27" drill="1.016" rot="R90"/>
+<pad name="3" x="7.62" y="1.27" drill="1.016" rot="R90"/>
+<pad name="4" x="10.16" y="1.27" drill="1.016" rot="R90"/>
+<pad name="5" x="12.7" y="1.27" drill="1.016" rot="R90"/>
+<text x="-0.0762" y="15.7988" size="1.27" layer="25" font="vector">&gt;NAME</text>
+<text x="0" y="-1.905" size="1.27" layer="27" font="vector">&gt;VALUE</text>
+<wire x1="0" y1="0" x2="15.24" y2="0" width="0.127" layer="21"/>
+<wire x1="15.24" y1="0" x2="15.24" y2="15.24" width="0.127" layer="21"/>
+<wire x1="15.24" y1="15.24" x2="0" y2="15.24" width="0.127" layer="21"/>
+<wire x1="0" y1="15.24" x2="0" y2="0" width="0.127" layer="21"/>
+<circle x="0.9525" y="2.8575" radius="0.3175" width="0.635" layer="21"/>
+</package>
 </packages>
 <symbols>
 <symbol name="PINHEAD-FTSH">
@@ -409,6 +459,19 @@ Source: WE-TPC 744053220.pdf</description>
 <pin name="D+" x="10.16" y="0" length="middle" rot="R180"/>
 <pin name="GND" x="10.16" y="-5.08" length="middle" direction="pwr" rot="R180"/>
 <pin name="ID" x="10.16" y="-2.54" length="middle" rot="R180"/>
+</symbol>
+<symbol name="BMP180_BREAKOUT">
+<wire x1="0" y1="0" x2="7.62" y2="0" width="0.254" layer="94"/>
+<wire x1="7.62" y1="0" x2="7.62" y2="15.24" width="0.254" layer="94"/>
+<wire x1="7.62" y1="15.24" x2="0" y2="15.24" width="0.254" layer="94"/>
+<wire x1="0" y1="15.24" x2="0" y2="0" width="0.254" layer="94"/>
+<pin name="IO" x="-2.54" y="12.7" length="middle"/>
+<pin name="3V3" x="-2.54" y="10.16" length="middle"/>
+<pin name="GND" x="-2.54" y="7.62" length="middle"/>
+<pin name="SCL" x="-2.54" y="5.08" length="middle"/>
+<pin name="SDA" x="-2.54" y="2.54" length="middle"/>
+<text x="0" y="15.24" size="1.778" layer="95" font="vector">&gt;NAME</text>
+<text x="0" y="-2.54" size="1.778" layer="95" font="vector">&gt;VALUE</text>
 </symbol>
 </symbols>
 <devicesets>
@@ -535,6 +598,25 @@ Source: WE-TPC 744053220.pdf</description>
 <connect gate="G$1" pin="GND" pad="5"/>
 <connect gate="G$1" pin="ID" pad="4"/>
 <connect gate="G$1" pin="VBUS" pad="1"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="BMP180" prefix="B">
+<gates>
+<gate name="G$1" symbol="BMP180_BREAKOUT" x="-2.54" y="-7.62"/>
+</gates>
+<devices>
+<device name="BREAKOUT" package="BMP180_BREAKOUT">
+<connects>
+<connect gate="G$1" pin="3V3" pad="2"/>
+<connect gate="G$1" pin="GND" pad="3"/>
+<connect gate="G$1" pin="IO" pad="1"/>
+<connect gate="G$1" pin="SCL" pad="4"/>
+<connect gate="G$1" pin="SDA" pad="5"/>
 </connects>
 <technologies>
 <technology name=""/>
