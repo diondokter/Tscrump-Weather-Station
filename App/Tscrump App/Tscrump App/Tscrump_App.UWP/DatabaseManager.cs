@@ -39,6 +39,11 @@ namespace Tscrump_App.UWP
 				Application.Current.MainPage.DisplayAlert("Something went wrong...", "Couldn't connect to the database.\n" + e.Message, "Ok");
 				IsConnected = false;
 			}
+			catch (Exception e)
+			{
+				Application.Current.MainPage.DisplayAlert("Something went wrong...", "Couldn't connect to the database.\n" + e.Message, "Ok");
+				IsConnected = false;
+			}
 		}
 
 		public void ExecuteNonQuery(string Query)

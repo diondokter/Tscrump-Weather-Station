@@ -115,7 +115,6 @@ namespace Tscrump_App
 		private void Update(object s, EventArgs e)
 		{
 			Update();
-			Navigation.PushAsync(new ChartLineOptionsPage());
 		}
 
 		private async void Update()
@@ -125,7 +124,7 @@ namespace Tscrump_App
 				return;
 			}
 
-			var Values = (await DatabaseManager.GetInstance()).ExecuteReader($"Select {nameof(DataPoint.Date)},{nameof(DataPoint.Temperature)},{nameof(DataPoint.Pressure)},{nameof(DataPoint.Humidity)},{nameof(DataPoint.Brightness)},{nameof(DataPoint.Precipitation)} from dummysensorvalues where Date >= {StartDatePicker.Date.AddDays(-1).ToSQLString()} and Date <= {EndDatePicker.Date.AddDays(1).AddHours(11.99999).ToSQLString()}");
+			var Values = (await DatabaseManager.GetInstance()).ExecuteReader($"Select {nameof(DataPoint.Date)},{nameof(DataPoint.Temperature)},{nameof(DataPoint.Pressure)},{nameof(DataPoint.Humidity)},{nameof(DataPoint.Brightness)},{nameof(DataPoint.Precipitation)} from sensor where Date >= {StartDatePicker.Date.AddDays(-1).ToSQLString()} and Date <= {EndDatePicker.Date.AddDays(1).AddHours(11.99999).ToSQLString()}");
 
 			DataPoint[] Models = new DataPoint[Values.Count];
 			for (int i = 0; i < Values.Count; i++)
@@ -192,6 +191,11 @@ namespace Tscrump_App
 			}
 		}
 
+		private void AdvancedOptionsButtonClicked(object sender, EventArgs e)
+		{
+			Navigation.PushAsync(new ChartOptionsPage());
+		}
+
 		private class DataPoint
 		{
 			public DateTime Date { get; set; }
@@ -221,6 +225,5 @@ namespace Tscrump_App
 				this.Data = Data.ToList();
 			}
 		}
-
 	}
 }

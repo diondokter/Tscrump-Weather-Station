@@ -14,36 +14,40 @@ namespace Tscrump_App
 			return $"\"{Value.ToString("yyyy-MM-dd HH:mm:ss")}\"";
 		}
 
-		public static string ToJSArray(this IEnumerable Value)
+		/// <summary>
+		/// Gives a nicely formatted string representing the TimeSpan
+		/// </summary>
+		/// <param name="value">The target TimeSpan</param>
+		/// <returns>A string in this format: ##:##:##</returns>
+		public static string ToNiceString(this TimeSpan value)
 		{
-			return $"[{ToSubJSArray(Value)}]";
+			return ((int)Math.Floor(value.TotalHours)).ToString("00") + ":" + value.Minutes.ToString("00") + ":" + value.Seconds.ToString("00");
 		}
 
-		private static string ToSubJSArray(IEnumerable Value)
+		/// <summary>
+		/// Removes any character that is not a number
+		/// </summary>
+		public static string ToNumberString(this string value)
 		{
-			StringBuilder Builder = new StringBuilder();
+			string RealNewText = "";
 
-			foreach (object Child in Value)
+			for (int i = 0; i < value.Length; i++)
 			{
-				if (Child is IEnumerable)
+				if (char.IsDigit(value, i))
 				{
-					Builder.Append(ToSubJSArray((IEnumerable)Child));
-				}
-				else if (Child is string || Child is DateTime)
-				{
-					Builder.Append('"');
-					Builder.Append(Child);
-					Builder.Append('"');
-					Builder.Append(',');
-				}
-				else
-				{
-					Builder.Append(Child);
-					Builder.Append(',');
+					RealNewText += value[i];
 				}
 			}
 
-			return Builder.ToString();
+			return RealNewText;
+		}
+
+		/// <summary>
+		/// Gives a 'NumberString' proper punctuation.
+		/// </summary>
+		public static string ToFormattedNumberString(this string value)
+		{
+			return long.Parse(value).ToString("N0", App.DeviceCulture);
 		}
 	}
 }

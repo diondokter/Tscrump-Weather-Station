@@ -44,7 +44,7 @@
 
 			</Grid>
 
-			<Button x:Name="AdvancedOptionsButton" Text="Advanced options"/>
+			<Button x:Name="AdvancedOptionsButton" Text="Advanced options" Clicked="AdvancedOptionsButtonClicked"/>
 			
 		</StackLayout>
 
