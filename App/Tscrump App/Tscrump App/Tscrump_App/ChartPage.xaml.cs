@@ -98,9 +98,13 @@ namespace Tscrump_App
 
 		protected override void OnSizeAllocated(double width, double height)
 		{
+			if (ChartView.HeightRequest == -1) // Only update the first time when the request has not yet been set
+			{
+				Update();
+			}
+
 			base.OnSizeAllocated(width, height);
 			ChartViewSizer(null, null);
-			Update();
 		}
 
 		private void ChartViewSizer(object s, EventArgs e)
@@ -114,7 +118,7 @@ namespace Tscrump_App
 			Navigation.PushAsync(new ChartLineOptionsPage());
 		}
 
-		public async void Update()
+		private async void Update()
 		{
 			if (await DatabaseManager.GetInstance() == null)
 			{
@@ -151,7 +155,7 @@ namespace Tscrump_App
 
 			if (Models.Length > 0)
 			{
-				// Keep temperature from <min->max
+				// Keep temperature from <min - >max
 				float MinimumTemperature = Models.Min((x) => x.Temperature);
 				float MaximumTemperature = Models.Max((x) => x.Temperature);
 				float DeltaTemperature = MaximumTemperature - MinimumTemperature;
@@ -159,7 +163,7 @@ namespace Tscrump_App
 				((NumericalAxis)TemperatureSeries.YAxis).Maximum = MaximumTemperature + DeltaTemperature / 20;
 				((NumericalAxis)TemperatureSeries.YAxis).Interval = (DeltaTemperature + DeltaTemperature / 10) / 10;
 
-				// Keep pressure from <min->max
+				// Keep pressure from <min - >max
 				float MinimumPressure = Models.Min((x) => x.Pressure);
 				float MaximumPressure = Models.Max((x) => x.Pressure);
 				float DeltaPressure = MaximumPressure - MinimumPressure;
@@ -167,19 +171,19 @@ namespace Tscrump_App
 				((NumericalAxis)PressureSeries.YAxis).Maximum = MaximumPressure + DeltaPressure / 20;
 				((NumericalAxis)PressureSeries.YAxis).Interval = (DeltaPressure + DeltaPressure / 10) / 10;
 
-				// Always keep humidity from 0-100%
+				// Always keep humidity from 0 - 100%
 				float DeltaHumidity = 100;
 				((NumericalAxis)HumiditySeries.YAxis).Minimum = 0;
 				((NumericalAxis)HumiditySeries.YAxis).Maximum = 100;
 				((NumericalAxis)HumiditySeries.YAxis).Interval = DeltaHumidity / 10;
 
-				// Always keep brightness from 0-100%
+				// Always keep brightness from 0 - 100%
 				float DeltaBrightness = 100;
 				((NumericalAxis)BrightnessSeries.YAxis).Minimum = 0;
 				((NumericalAxis)BrightnessSeries.YAxis).Maximum = 100;
 				((NumericalAxis)BrightnessSeries.YAxis).Interval = DeltaBrightness / 10;
 
-				// Always keep precipitation from 0->max
+				// Always keep precipitation from 0 - >max
 				float MaximumPrecipitation = Models.Max((x) => x.Precipitation);
 				float DeltaPrecipitation = MaximumPrecipitation;
 				((NumericalAxis)PrecipitationSeries.YAxis).Minimum = 0;

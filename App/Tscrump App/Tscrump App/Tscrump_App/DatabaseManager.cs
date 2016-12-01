@@ -22,15 +22,17 @@ namespace Tscrump_App
 		{
 			if (_Instance == null)
 			{
-				bool ServerReachable = await CrossConnectivity.Current.IsRemoteReachable(Server, int.Parse(Port), 1000); // Doesn't always work :(
-
-				if (ServerReachable)
+				if (CrossConnectivity.Current.IsConnected)
 				{
-					_Instance = DependencyService.Get<IDatabaseManager>();
+					_Instance = DependencyService.Get<IDatabaseManager>(DependencyFetchTarget.NewInstance);
+					if (!_Instance.IsConnected)
+					{
+						_Instance = null;
+					}
 				}
 				else
 				{
-					bool DisplayAnswer = await Application.Current.MainPage.DisplayAlert("Connection error.", "Could not reach the server...", "Retry", "Ok");
+					bool DisplayAnswer = await Application.Current.MainPage.DisplayAlert("Connection error.", "You are not connected to the internet.", "Retry", "Ok");
 					if (DisplayAnswer)
 					{
 						_Instance = await GetInstance();

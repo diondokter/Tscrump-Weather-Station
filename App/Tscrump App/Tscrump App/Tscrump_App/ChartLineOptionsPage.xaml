@@ -1,13 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Tscrump_App.ChartLineOptionsPage">
+             x:Class="Tscrump_App.ChartLineOptionsPage"
+			 Padding="5,0">
 
 	<TableView Intent="Settings">
 		<TableRoot>
-			<TableSection Title="Visibility">
-				<SwitchCell Text="Axis"/>
-				<SwitchCell Text="Line"/>
+			<TableSection Title="Temperature">
+				<SwitchCell Text="Y Axis Visible"/>
+				<SwitchCell Text="Line Visible"/>
+				<ViewCell>
+					<StackLayout Orientation="Horizontal">
+						<Label Text="Color" HorizontalOptions="Start" Font="Bold" FontSize="Default"/>
+						<Picker x:Name="TemperatureColor" HorizontalOptions="EndAndExpand"/>
+					</StackLayout>
+				</ViewCell>
 			</TableSection>
 		</TableRoot>
 	</TableView>

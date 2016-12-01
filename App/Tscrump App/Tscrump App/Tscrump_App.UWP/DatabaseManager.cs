@@ -7,6 +7,7 @@ using System.Data;
 using System.Data.Common;
 using MySql.Data.MySqlClient;
 using Tscrump_App.UWP;
+using Xamarin.Forms;
 
 [assembly: Xamarin.Forms.Dependency(typeof(DatabaseManager))]
 namespace Tscrump_App.UWP
@@ -16,15 +17,28 @@ namespace Tscrump_App.UWP
 		private bool Disposed = false;
 		private MySqlConnection Connection;
 
+		public bool IsConnected
+		{
+			get;
+		} = true;
+
 		public DatabaseManager()
 		{
-			//Set our encoding to something that mysql can understand
-			Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+			try
+			{
+				//Set our encoding to something that mysql can understand
+				Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
-			string ConnectionString = $"Server={Tscrump_App.DatabaseManager.Server}; Port={Tscrump_App.DatabaseManager.Port}; Database={Tscrump_App.DatabaseManager.Database}; Uid={Tscrump_App.DatabaseManager.UID}; Pwd={Tscrump_App.DatabaseManager.Password}; SslMode=None;";
+				string ConnectionString = $"Server={Tscrump_App.DatabaseManager.Server}; Port={Tscrump_App.DatabaseManager.Port}; Database={Tscrump_App.DatabaseManager.Database}; Uid={Tscrump_App.DatabaseManager.UID}; Pwd={Tscrump_App.DatabaseManager.Password}; SslMode=None;";
 
-			Connection = new MySqlConnection(ConnectionString);
-			Connection.Open();
+				Connection = new MySqlConnection(ConnectionString);
+				Connection.Open();
+			}
+			catch (MySqlException e)
+			{
+				Application.Current.MainPage.DisplayAlert("Something went wrong...", "Couldn't connect to the database.\n" + e.Message, "Ok");
+				IsConnected = false;
+			}
 		}
 
 		public void ExecuteNonQuery(string Query)

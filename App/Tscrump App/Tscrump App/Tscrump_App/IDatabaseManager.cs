@@ -8,6 +8,8 @@ namespace Tscrump_App
 {
 	public interface IDatabaseManager
 	{
+		bool IsConnected { get; }
+
 		void ExecuteNonQuery(string Query);
 		List<object[]> ExecuteReader(string Query);
 		List<object> ExecuteReader(string Query, int Column);
