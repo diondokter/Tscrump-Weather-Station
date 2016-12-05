@@ -22,14 +22,8 @@
 				</ViewCell>
 				<ViewCell>
 					<StackLayout Orientation="Horizontal" Padding="15,0" HeightRequest="40">
-						<Label Text="Y Axis Max" VerticalOptions="Center" HorizontalOptions="Start"/>
-						<local:NumericEntry x:Name="TemperatureYAxisMaxUpDown" HorizontalOptions="EndAndExpand" VerticalOptions="Center"/>
-					</StackLayout>
-				</ViewCell>
-				<ViewCell>
-					<StackLayout Orientation="Horizontal" Padding="15,0" HeightRequest="40">
-						<Label Text="Y Axis Min" VerticalOptions="Center" HorizontalOptions="StartAndExpand"/>
-						<local:NumericEntry x:Name="TemperatureYAxisMinUpDown" HorizontalOptions="EndAndExpand" VerticalOptions="Center"/>
+						<Label Text="Type" VerticalOptions="Center" HorizontalOptions="Start"/>
+						<Picker x:Name="TemperatureLineTypePicker" HorizontalOptions="EndAndExpand" VerticalOptions="Center"/>
 					</StackLayout>
 				</ViewCell>
 			</TableSection>
@@ -48,14 +42,8 @@
 				</ViewCell>
 				<ViewCell>
 					<StackLayout Orientation="Horizontal" Padding="15,0" HeightRequest="40">
-						<Label Text="Y Axis Max" VerticalOptions="Center" HorizontalOptions="Start"/>
-						<local:NumericEntry x:Name="PressureYAxisMaxUpDown" HorizontalOptions="EndAndExpand" VerticalOptions="Center"/>
-					</StackLayout>
-				</ViewCell>
-				<ViewCell>
-					<StackLayout Orientation="Horizontal" Padding="15,0" HeightRequest="40">
-						<Label Text="Y Axis Min" VerticalOptions="Center" HorizontalOptions="StartAndExpand"/>
-						<local:NumericEntry x:Name="PressureYAxisMinUpDown" HorizontalOptions="EndAndExpand" VerticalOptions="Center"/>
+						<Label Text="Type" VerticalOptions="Center" HorizontalOptions="Start"/>
+						<Picker x:Name="PressureLineTypePicker" HorizontalOptions="EndAndExpand" VerticalOptions="Center"/>
 					</StackLayout>
 				</ViewCell>
 			</TableSection>
@@ -74,14 +62,8 @@
 				</ViewCell>
 				<ViewCell>
 					<StackLayout Orientation="Horizontal" Padding="15,0" HeightRequest="40">
-						<Label Text="Y Axis Max" VerticalOptions="Center" HorizontalOptions="Start"/>
-						<local:NumericEntry x:Name="HumidityYAxisMaxUpDown" HorizontalOptions="EndAndExpand" VerticalOptions="Center"/>
-					</StackLayout>
-				</ViewCell>
-				<ViewCell>
-					<StackLayout Orientation="Horizontal" Padding="15,0" HeightRequest="40">
-						<Label Text="Y Axis Min" VerticalOptions="Center" HorizontalOptions="StartAndExpand"/>
-						<local:NumericEntry x:Name="HumidityYAxisMinUpDown" HorizontalOptions="EndAndExpand" VerticalOptions="Center"/>
+						<Label Text="Type" VerticalOptions="Center" HorizontalOptions="Start"/>
+						<Picker x:Name="HumidityLineTypePicker" HorizontalOptions="EndAndExpand" VerticalOptions="Center"/>
 					</StackLayout>
 				</ViewCell>
 			</TableSection>
@@ -100,14 +82,8 @@
 				</ViewCell>
 				<ViewCell>
 					<StackLayout Orientation="Horizontal" Padding="15,0" HeightRequest="40">
-						<Label Text="Y Axis Max" VerticalOptions="Center" HorizontalOptions="Start"/>
-						<local:NumericEntry x:Name="BrightnessYAxisMaxUpDown" HorizontalOptions="EndAndExpand" VerticalOptions="Center"/>
-					</StackLayout>
-				</ViewCell>
-				<ViewCell>
-					<StackLayout Orientation="Horizontal" Padding="15,0" HeightRequest="40">
-						<Label Text="Y Axis Min" VerticalOptions="Center" HorizontalOptions="StartAndExpand"/>
-						<local:NumericEntry x:Name="BrightnessYAxisMinUpDown" HorizontalOptions="EndAndExpand" VerticalOptions="Center"/>
+						<Label Text="Type" VerticalOptions="Center" HorizontalOptions="Start"/>
+						<Picker x:Name="BrightnessLineTypePicker" HorizontalOptions="EndAndExpand" VerticalOptions="Center"/>
 					</StackLayout>
 				</ViewCell>
 			</TableSection>
@@ -126,14 +102,8 @@
 				</ViewCell>
 				<ViewCell>
 					<StackLayout Orientation="Horizontal" Padding="15,0" HeightRequest="40">
-						<Label Text="Y Axis Max" VerticalOptions="Center" HorizontalOptions="Start"/>
-						<local:NumericEntry x:Name="PrecipitationYAxisMaxUpDown" HorizontalOptions="EndAndExpand" VerticalOptions="Center"/>
-					</StackLayout>
-				</ViewCell>
-				<ViewCell>
-					<StackLayout Orientation="Horizontal" Padding="15,0" HeightRequest="40">
-						<Label Text="Y Axis Min" VerticalOptions="Center" HorizontalOptions="StartAndExpand"/>
-						<local:NumericEntry x:Name="PrecipitationYAxisMinUpDown" HorizontalOptions="EndAndExpand" VerticalOptions="Center"/>
+						<Label Text="Type" VerticalOptions="Center" HorizontalOptions="Start"/>
+						<Picker x:Name="PrecipitationLineTypePicker" HorizontalOptions="EndAndExpand" VerticalOptions="Center"/>
 					</StackLayout>
 				</ViewCell>
 			</TableSection>

@@ -15,16 +15,6 @@ namespace Tscrump_App
 		}
 
 		/// <summary>
-		/// Gives a nicely formatted string representing the TimeSpan
-		/// </summary>
-		/// <param name="value">The target TimeSpan</param>
-		/// <returns>A string in this format: ##:##:##</returns>
-		public static string ToNiceString(this TimeSpan value)
-		{
-			return ((int)Math.Floor(value.TotalHours)).ToString("00") + ":" + value.Minutes.ToString("00") + ":" + value.Seconds.ToString("00");
-		}
-
-		/// <summary>
 		/// Removes any character that is not a number
 		/// </summary>
 		public static string ToNumberString(this string value)
@@ -33,7 +23,7 @@ namespace Tscrump_App
 
 			for (int i = 0; i < value.Length; i++)
 			{
-				if (char.IsDigit(value, i))
+				if (char.IsDigit(value, i) || value[i] == App.DeviceCulture.NumberFormat.NumberDecimalSeparator[0])
 				{
 					RealNewText += value[i];
 				}
@@ -47,7 +37,7 @@ namespace Tscrump_App
 		/// </summary>
 		public static string ToFormattedNumberString(this string value)
 		{
-			return long.Parse(value).ToString("N0", App.DeviceCulture);
+			return double.Parse(value).ToString(App.DeviceCulture);
 		}
 	}
 }

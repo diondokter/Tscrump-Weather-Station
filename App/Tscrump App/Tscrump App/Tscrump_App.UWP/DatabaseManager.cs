@@ -39,54 +39,72 @@ namespace Tscrump_App.UWP
 				Application.Current.MainPage.DisplayAlert("Something went wrong...", "Couldn't connect to the database.\n" + e.Message, "Ok");
 				IsConnected = false;
 			}
-			catch (Exception e)
-			{
-				Application.Current.MainPage.DisplayAlert("Something went wrong...", "Couldn't connect to the database.\n" + e.Message, "Ok");
-				IsConnected = false;
-			}
 		}
 
 		public void ExecuteNonQuery(string Query)
 		{
-			MySqlCommand Command = Connection.CreateCommand();
-			Command.CommandText = Query;
-			Command.ExecuteNonQuery();
+			try
+			{
+				MySqlCommand Command = Connection.CreateCommand();
+				Command.CommandText = Query;
+				Command.ExecuteNonQuery();
+			}
+			catch (MySqlException e)
+			{
+				Application.Current.MainPage.DisplayAlert("Something went wrong...", e.Message, "Ok");
+			}
 		}
 
 		public List<object[]> ExecuteReader(string Query)
 		{
-			MySqlCommand Command = Connection.CreateCommand();
-			Command.Prepare();
-			Command.CommandText = Query;
-			MySqlDataReader Reader = Command.ExecuteReader();
-
-			List<object[]> Data = new List<object[]>();
-
-			while (Reader.Read())
+			try
 			{
-				object[] Row = new object[Reader.FieldCount];
+				MySqlCommand Command = Connection.CreateCommand();
+				Command.Prepare();
+				Command.CommandText = Query;
+				MySqlDataReader Reader = Command.ExecuteReader();
 
-				for (int i = 0; i < Row.Length; i++)
+				List<object[]> Data = new List<object[]>();
+
+				while (Reader.Read())
 				{
-					Row[i] = Reader.GetValue(i);
+					object[] Row = new object[Reader.FieldCount];
+
+					for (int i = 0; i < Row.Length; i++)
+					{
+						Row[i] = Reader.GetValue(i);
+					}
+
+					Data.Add(Row);
 				}
 
-				Data.Add(Row);
+				Reader.Close();
+				Reader.Dispose();
+
+				return Data;
 			}
-
-			Reader.Close();
-			Reader.Dispose();
-
-			return Data;
+			catch (MySqlException e)
+			{
+				Application.Current.MainPage.DisplayAlert("Something went wrong...", e.Message, "Ok");
+				return null;
+			}
 		}
 
 		public object ExecuteScaler(string Query)
 		{
-			MySqlCommand Command = Connection.CreateCommand();
-			Command.CommandText = Query;
-			object Data = Command.ExecuteScalar();
+			try
+			{
+				MySqlCommand Command = Connection.CreateCommand();
+				Command.CommandText = Query;
+				object Data = Command.ExecuteScalar();
 
-			return Data;
+				return Data;
+			}
+			catch (MySqlException e)
+			{
+				Application.Current.MainPage.DisplayAlert("Something went wrong...", e.Message, "Ok");
+				return null;
+			}
 		}
 
 		public void Dispose()
@@ -107,24 +125,32 @@ namespace Tscrump_App.UWP
 
 		public List<object> ExecuteReader(string Query, int Column)
 		{
-			MySqlCommand Command = Connection.CreateCommand();
-			Command.Prepare();
-			Command.CommandText = Query;
-			MySqlDataReader Reader = Command.ExecuteReader();
-
-			List<object> Data = new List<object>();
-
-			while (Reader.Read())
+			try
 			{
-				object Row = new object[Reader.FieldCount];
-				Row = Reader.GetValue(Column);
-				Data.Add(Row);
+				MySqlCommand Command = Connection.CreateCommand();
+				Command.Prepare();
+				Command.CommandText = Query;
+				MySqlDataReader Reader = Command.ExecuteReader();
+
+				List<object> Data = new List<object>();
+
+				while (Reader.Read())
+				{
+					object Row = new object[Reader.FieldCount];
+					Row = Reader.GetValue(Column);
+					Data.Add(Row);
+				}
+
+				Reader.Close();
+				Reader.Dispose();
+
+				return Data;
 			}
-
-			Reader.Close();
-			Reader.Dispose();
-
-			return Data;
+			catch (MySqlException e)
+			{
+				Application.Current.MainPage.DisplayAlert("Something went wrong...", e.Message, "Ok");
+				return null;
+			}
 		}
 	}
 }

@@ -12,33 +12,39 @@ namespace Tscrump_App
 		public NumericEntry()
 		{
 			base.TextChanged += NumericEntryTextChanged;
-			base.Keyboard = Keyboard.Numeric;
 		}
 
 		private void NumericEntryTextChanged(object sender, TextChangedEventArgs e)
 		{
-			// We don't want any of the 'filthy' letters in our text, don't we?
-			// Let's make it a nicely formatted number
-			if (e.NewTextValue != null && !string.IsNullOrWhiteSpace(e.NewTextValue))
+			char LastChar = e.NewTextValue?.ToCharArray().LastOrDefault() ?? char.MinValue;
+			if (!char.IsNumber(LastChar) && LastChar != char.MinValue && LastChar != '+' && LastChar != '-' && LastChar != App.DeviceCulture.NumberFormat.NumberGroupSeparator[0] && LastChar != App.DeviceCulture.NumberFormat.NumberDecimalSeparator[0])
 			{
-				Entry TargetEntry = (Entry)sender;
+				Text = e.OldTextValue ?? "";
+			}
+			else
+			{
+				string DesiredText = e.NewTextValue.Replace(App.DeviceCulture.NumberFormat.NumberGroupSeparator, App.DeviceCulture.NumberFormat.NumberDecimalSeparator);
 
-				string RealNewText = e.NewTextValue.ToNumberString();
+				if (DesiredText.Contains("-"))
+				{
+					DesiredText = "-" + DesiredText.Replace("-", "");
+				}
 
-				if (RealNewText.Length == 0)
+				if (DesiredText.Contains("+"))
 				{
-					TargetEntry.Text = "";
+					DesiredText = DesiredText.Replace("-", "").Replace("+", "");
 				}
-				else if (RealNewText.Length < 19)
+
+				while (DesiredText.ToCharArray().Count((x) => x.ToString() == App.DeviceCulture.NumberFormat.NumberDecimalSeparator) > 1)
 				{
-					TargetEntry.Text = RealNewText.ToFormattedNumberString();
+					DesiredText = DesiredText.Remove(DesiredText.IndexOf(App.DeviceCulture.NumberFormat.NumberDecimalSeparator), 1);
 				}
-				else
+
+				if (DesiredText != e.NewTextValue)
 				{
-					TargetEntry.Text = e.OldTextValue;
+					Text = DesiredText;
 				}
 			}
-
 		}
 	}
 }
