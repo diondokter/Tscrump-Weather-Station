@@ -114,6 +114,7 @@ namespace Tscrump_App
 			}
 		}
 
+		// Dictionary to create chartseries based only on the type. Every type corresponds to a func that returns the new series
 		public readonly Dictionary<Type, Func<RangeAxisBase, string, string, string, XyDataSeries>> SeriesCreation = new Dictionary<Type, Func<RangeAxisBase, string, string, string, XyDataSeries>>()
 		{
 			[typeof(LineSeries)] = (YAxis, XBindingPath, YBindingPath, DataPath) =>
@@ -148,40 +149,53 @@ namespace Tscrump_App
 			}
 		};
 
+		public readonly Func<string, Color, NumericalAxis> YAxisCreation = (Text, TextColor) => 
+			{
+				return new NumericalAxis() { Title = new ChartAxisTitle() { Text = Text, TextColor = TextColor }, RangePadding = NumericalPadding.Additional };
+			};
+
+		// We want to spawn the line as default
 		private readonly Type DefaultSeries = typeof(LineSeries);
 
 		public ChartPage()
 		{
 			InitializeComponent();
 
+			// On android the chart crashes if there's no data to bind. So let's give it some data in the form of an empty array.
+			this.BindingContext = new DataPointCollection(new DataPoint[0]);
+
+			// Initialize the dates from on week ago to now
 			StartDatePicker.Date = DateTime.Today.AddDays(-7);
 			EndDatePicker.Date = DateTime.Today;
 
+			// Whenever a date is selected, we want to update the chart
 			StartDatePicker.DateSelected += Update;
 			EndDatePicker.DateSelected += Update;
 
+			// Create and add the primary axis
 			ChartView.PrimaryAxis = new DateTimeAxis() { LabelsIntersectAction = AxisLabelsIntersectAction.Hide, EdgeLabelsDrawingMode = EdgeLabelsDrawingMode.Hide, LabelStyle = new ChartAxisLabelStyle() { LabelFormat = CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern + " - " + CultureInfo.CurrentCulture.DateTimeFormat.ShortTimePattern } };
 
 			// Temperature -------------------------------------------------------
-			NumericalAxis TemperatureAxis = new NumericalAxis() { Title = new ChartAxisTitle() { Text = "Temperature (C)", TextColor = Color.Blue }, RangePadding = NumericalPadding.Additional };
+			NumericalAxis TemperatureAxis = YAxisCreation("Temperature (C)", Color.Blue);
 			ChartView.Series.Add(SeriesCreation[DefaultSeries](TemperatureAxis, nameof(DataPoint.Date), nameof(DataPoint.Temperature), nameof(DataPointCollection.Data)));
 
 			// Pressure -------------------------------------------------------
-			NumericalAxis PressureAxis = new NumericalAxis() { Title = new ChartAxisTitle() { Text = "Pressure (bar)", TextColor = Color.Red }, RangePadding = NumericalPadding.Additional };
+			NumericalAxis PressureAxis = YAxisCreation("Pressure (bar)", Color.Red);
 			ChartView.Series.Add(SeriesCreation[DefaultSeries](PressureAxis, nameof(DataPoint.Date), nameof(DataPoint.Pressure), nameof(DataPointCollection.Data)));
 
 			// Humidity -------------------------------------------------------
-			NumericalAxis HumidityAxis = new NumericalAxis() { Title = new ChartAxisTitle() { Text = "Humidity (%)", TextColor = Color.Pink }, RangePadding = NumericalPadding.Additional };
+			NumericalAxis HumidityAxis = YAxisCreation("Humidity (%)", Color.Pink);
 			ChartView.Series.Add(SeriesCreation[DefaultSeries](HumidityAxis, nameof(DataPoint.Date), nameof(DataPoint.Humidity), nameof(DataPointCollection.Data)));
 
 			// Brightness -------------------------------------------------------
-			NumericalAxis BrightnessAxis = new NumericalAxis() { Title = new ChartAxisTitle() { Text = "Brightness (%)", TextColor = Color.Lime }, RangePadding = NumericalPadding.Additional };
+			NumericalAxis BrightnessAxis = YAxisCreation("Brightness (%)", Color.Lime);
 			ChartView.Series.Add(SeriesCreation[DefaultSeries](BrightnessAxis, nameof(DataPoint.Date), nameof(DataPoint.Brightness), nameof(DataPointCollection.Data)));
 
 			// Precipitation -------------------------------------------------------
-			NumericalAxis PrecipitationAxis = new NumericalAxis() { Title = new ChartAxisTitle() { Text = "Precipitation (mm)", TextColor = Color.Orange }, RangePadding = NumericalPadding.Additional };
+			NumericalAxis PrecipitationAxis = YAxisCreation("Precipitation (mm)", Color.Orange);
 			ChartView.Series.Add(SeriesCreation[DefaultSeries](PrecipitationAxis, nameof(DataPoint.Date), nameof(DataPoint.Precipitation), nameof(DataPointCollection.Data)));
 
+			// Whenever the window size has changed, call the appropriate method
 			SizeChanged += ChartViewSizer;
 		}
 
@@ -198,24 +212,36 @@ namespace Tscrump_App
 
 		private void ChartViewSizer(object s, EventArgs e)
 		{
+			// Set the height of the chart to be the height of the window, minus the margin
 			ChartView.HeightRequest = this.Height - ChartView.Margin.VerticalThickness;
 		}
 
 		private void Update(object s, EventArgs e)
 		{
+			// We update with a new query, unless the caller is a switch. Then we don't need to query again.
 			Update(!(s is Switch));
 		}
 
-		public async void Update(bool DoNewQuery = true)
+		public void Update(bool DoNewQuery = true)
 		{
-			if (DoNewQuery)
+			if (EndDatePicker.Date < StartDatePicker.Date)
 			{
-				if (await DatabaseManager.GetInstance() == null)
+				EndDatePicker.Date = StartDatePicker.Date;
+			}
+			if (StartDatePicker.Date > EndDatePicker.Date)
+			{
+				StartDatePicker.Date = EndDatePicker.Date;
+			}
+
+			if (DoNewQuery || true)
+			{
+
+				if (DatabaseManager.GetInstance() == null)
 				{
 					return;
 				}
 
-				var Values = (await DatabaseManager.GetInstance()).ExecuteReader($"Select {nameof(DataPoint.Date)},{nameof(DataPoint.Temperature)},{nameof(DataPoint.Pressure)},{nameof(DataPoint.Humidity)},{nameof(DataPoint.Brightness)},{nameof(DataPoint.Precipitation)} from sensor where Date >= {StartDatePicker.Date.AddDays(-1).ToSQLString()} and Date <= {EndDatePicker.Date.AddDays(1).AddHours(11.99999).ToSQLString()}");
+				var Values = DatabaseManager.GetInstance().ExecuteReader($"Select {nameof(DataPoint.Date)},{nameof(DataPoint.Temperature)},{nameof(DataPoint.Pressure)},{nameof(DataPoint.Humidity)},{nameof(DataPoint.Brightness)},{nameof(DataPoint.Precipitation)} from sensor where Date >= {StartDatePicker.Date.AddDays(-1).ToSQLString()} and Date <= {EndDatePicker.Date.AddDays(1).AddHours(11.99999).ToSQLString()}");
 
 				DataPoint[] Models = new DataPoint[Values?.Count ?? 0];
 				for (int i = 0; i < Values.Count; i++)
@@ -231,20 +257,20 @@ namespace Tscrump_App
 				if (Models.Length > 0)
 				{
 					// Keep temperature from <min - >max
-					float MinimumTemperature = Models.Min((x) => x.Temperature);
-					float MaximumTemperature = Models.Max((x) => x.Temperature);
-					float DeltaTemperature = MaximumTemperature - MinimumTemperature;
-					((NumericalAxis)TemperatureSeries.YAxis).Minimum = MinimumTemperature - DeltaTemperature / 20;
-					((NumericalAxis)TemperatureSeries.YAxis).Maximum = MaximumTemperature + DeltaTemperature / 20;
-					((NumericalAxis)TemperatureSeries.YAxis).Interval = (DeltaTemperature + DeltaTemperature / 10) / 10;
+					double MinimumTemperature = Math.Floor(Models.Min((x) => x.Temperature)) - 1;
+					double MaximumTemperature = Math.Ceiling(Models.Max((x) => x.Temperature)) + 1;
+					double DeltaTemperature = MaximumTemperature - MinimumTemperature;
+					((NumericalAxis)TemperatureSeries.YAxis).Minimum = MinimumTemperature;
+					((NumericalAxis)TemperatureSeries.YAxis).Maximum = MaximumTemperature;
+					((NumericalAxis)TemperatureSeries.YAxis).Interval = DeltaTemperature / 10;
 
 					// Keep pressure from <min - >max
-					float MinimumPressure = Models.Min((x) => x.Pressure);
-					float MaximumPressure = Models.Max((x) => x.Pressure);
-					float DeltaPressure = MaximumPressure - MinimumPressure;
-					((NumericalAxis)PressureSeries.YAxis).Minimum = MinimumPressure - DeltaPressure / 20;
-					((NumericalAxis)PressureSeries.YAxis).Maximum = MaximumPressure + DeltaPressure / 20;
-					((NumericalAxis)PressureSeries.YAxis).Interval = (DeltaPressure + DeltaPressure / 10) / 10;
+					double MinimumPressure = 0.5;
+					double MaximumPressure = 1.5;
+					double DeltaPressure = MaximumPressure - MinimumPressure;
+					((NumericalAxis)PressureSeries.YAxis).Minimum = MinimumPressure;
+					((NumericalAxis)PressureSeries.YAxis).Maximum = MaximumPressure;
+					((NumericalAxis)PressureSeries.YAxis).Interval = DeltaPressure / 10;
 
 					// Always keep humidity from 0 - 100%
 					float DeltaHumidity = 100;
@@ -259,11 +285,11 @@ namespace Tscrump_App
 					((NumericalAxis)BrightnessSeries.YAxis).Interval = DeltaBrightness / 10;
 
 					// Always keep precipitation from 0 - >max
-					float MaximumPrecipitation = Models.Max((x) => x.Precipitation);
-					float DeltaPrecipitation = MaximumPrecipitation;
+					double MaximumPrecipitation = Math.Ceiling(Models.Max((x) => x.Precipitation));
+					double DeltaPrecipitation = MaximumPrecipitation;
 					((NumericalAxis)PrecipitationSeries.YAxis).Minimum = 0;
-					((NumericalAxis)PrecipitationSeries.YAxis).Maximum = MaximumPrecipitation + DeltaPrecipitation / 20;
-					((NumericalAxis)PrecipitationSeries.YAxis).Interval = (DeltaPrecipitation + DeltaPrecipitation / 20) / 10;
+					((NumericalAxis)PrecipitationSeries.YAxis).Maximum = MaximumPrecipitation;
+					((NumericalAxis)PrecipitationSeries.YAxis).Interval = DeltaPrecipitation / 10;
 				}
 			}
 
@@ -285,9 +311,13 @@ namespace Tscrump_App
 
 		private void AdvancedOptionsButtonClicked(object sender, EventArgs e)
 		{
+			// Push a new options page on the navigation stack
 			Navigation.PushAsync(new ChartOptionsPage(this));
 		}
 
+		/// <summary>
+		/// Class used for storing the query'd rows
+		/// </summary>
 		public class DataPoint
 		{
 			public DateTime Date { get; set; }
@@ -308,6 +338,9 @@ namespace Tscrump_App
 			}
 		}
 
+		/// <summary>
+		/// Class for binding the data to the chart
+		/// </summary>
 		public class DataPointCollection
 		{
 			public List<DataPoint> Data { get; set; }

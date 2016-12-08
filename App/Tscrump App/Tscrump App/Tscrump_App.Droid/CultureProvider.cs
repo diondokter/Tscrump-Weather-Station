@@ -24,7 +24,15 @@ namespace Tscrump_App.Droid
 		{
 			var androidLocale = Java.Util.Locale.Default;
 			var netLanguage = androidLocale.ToString().Replace("_", "-");
-			return new CultureInfo(netLanguage.ToLower());
+
+			try
+			{
+				return new CultureInfo(netLanguage.ToLower());
+			}
+			catch(CultureNotFoundException)
+			{
+				return CultureInfo.InvariantCulture;
+			}
 		}
 	}
 }

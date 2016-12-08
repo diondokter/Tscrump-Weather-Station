@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
-using Plugin.Connectivity;
 
 namespace Tscrump_App
 {
@@ -24,29 +23,14 @@ namespace Tscrump_App
 
 		private static IDatabaseManager _Instance;
 
-		public static async Task<IDatabaseManager> GetInstance()
+		public static IDatabaseManager GetInstance()
 		{
 			if (_Instance == null)
 			{
-				if (CrossConnectivity.Current.IsConnected)
+				_Instance = DependencyService.Get<IDatabaseManager>(DependencyFetchTarget.NewInstance);
+				if (!_Instance.IsConnected)
 				{
-					_Instance = DependencyService.Get<IDatabaseManager>(DependencyFetchTarget.NewInstance);
-					if (!_Instance.IsConnected)
-					{
-						_Instance = null;
-					}
-				}
-				else
-				{
-					bool DisplayAnswer = await Application.Current.MainPage.DisplayAlert("Connection error.", "You are not connected to the internet.", "Retry", "Ok");
-					if (DisplayAnswer)
-					{
-						_Instance = await GetInstance();
-					}
-					else
-					{
-						_Instance = null;
-					}
+					_Instance = null;
 				}
 			}
 

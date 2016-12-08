@@ -13,6 +13,7 @@ namespace Tscrump_App
 	{
 		private ChartPage ChartSource;
 
+		// Dictionary mapping an enum colorvalue to an actual color value
 		private Dictionary<ColorValue, Color> ColorTable = new Dictionary<ColorValue, Color>()
 		{
 			[ColorValue.Accent] = Color.Accent,
@@ -56,12 +57,19 @@ namespace Tscrump_App
 		{
 			base.OnDisappearing();
 
+			// Replace all series with one of the correct type.
+			// Loop through them all
 			for (int i = 0; i < ChartSource.Series.Count; i++)
 			{
+				// Set the new color of the series
 				ChartSource.Series[i].Color = ColorPickers[i].TextColor;
 				((XyDataSeries)ChartSource.Series[i]).YAxis.Title.TextColor = ColorPickers[i].TextColor;
 
-				ChartSource.Series[i] = ChartSource.SeriesCreation[ChartSource.SeriesCreation.Keys.ElementAt(LineTypePickers[i].SelectedIndex)](((XyDataSeries)ChartSource.Series[i]).YAxis, nameof(ChartPage.DataPoint.Date), ((XyDataSeries)ChartSource.Series[i]).YBindingPath, nameof(ChartPage.DataPointCollection.Data));
+				// Create a new YAxis for the seris
+				RangeAxisBase YAxis = ChartSource.YAxisCreation(((XyDataSeries)ChartSource.Series[i]).YAxis.Title.Text, ((XyDataSeries)ChartSource.Series[i]).YAxis.Title.TextColor);
+
+				// Set the series collection element to the new value, based on the selected type
+				ChartSource.Series[i] = ChartSource.SeriesCreation[ChartSource.SeriesCreation.Keys.ElementAt(LineTypePickers[i].SelectedIndex)](YAxis, nameof(ChartPage.DataPoint.Date), ((XyDataSeries)ChartSource.Series[i]).YBindingPath, nameof(ChartPage.DataPointCollection.Data));
 			}
 
 			ChartSource.IsTemperatureVisible = TemperatureVisibleSwitch.IsToggled;
@@ -82,6 +90,7 @@ namespace Tscrump_App
 
 		private void InitializeColorPickers()
 		{
+			// Loop through all color pickers, add all the color values and set them to the right startvalue
 			for (int i = 0; i < ColorPickers.Length; i++)
 			{
 				ColorPickers[i].SelectedIndexChanged += (sender, e) => ((Picker)sender).TextColor = ColorTable[ColorTable.Keys.ElementAt(((Picker)sender).SelectedIndex)];

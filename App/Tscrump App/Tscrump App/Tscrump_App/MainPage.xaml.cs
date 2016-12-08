@@ -16,11 +16,27 @@ namespace Tscrump_App
 		public MainPage()
 		{
 			InitializeComponent();
+
+			// Set the image source for the logo
+			LogoImage.Source = ImageSource.FromResource("Tscrump_App.TscrumpLogo.png");
 		}
 
 		private async void ViewChartButtonClicked(object sender, EventArgs e)
 		{
+			// We want to see the chart, so let's push a new chartpage on the navigation stack
 			await Navigation.PushAsync(new ChartPage());
+		}
+
+		private void ViewWebsiteButtonClicked(object sender, EventArgs e)
+		{
+			// Visit the website
+			Device.OpenUri(new Uri("http://tscrump.tk"));
+		}
+
+		private void ViewSourceButtonClicked(object sender, EventArgs e)
+		{
+			// Visit the project page
+			Device.OpenUri(new Uri("https://github.com/diondokter/Tscrump-Weather-Station"));
 		}
 	}
 }

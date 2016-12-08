@@ -6,10 +6,14 @@
 
 	<ScrollView>
 		<StackLayout Padding="20,0">
+			<StackLayout Margin="-20,0" BackgroundColor="#00CCBB" Padding="5">
+				<Label Text="Weather Station Chart" FontSize="40" HorizontalTextAlignment="Center" TextColor="White"/>
+			</StackLayout>
+
 
 			<chart:SfChart x:Name="ChartView" Margin="-15,10,0,10"/>
 
-			<Button Text="Refresh" Clicked="Update"/>
+			<Button BackgroundColor="#00CCBB" TextColor="White" Text="Refresh" Clicked="Update"/>
 
 			<Label Text="Start Date" HorizontalOptions="Center"/>
 			<DatePicker x:Name="StartDatePicker" HorizontalOptions="Center"/>
@@ -44,7 +48,7 @@
 
 			</Grid>
 
-			<Button x:Name="AdvancedOptionsButton" Text="Advanced options" Clicked="AdvancedOptionsButtonClicked"/>
+			<Button BackgroundColor="#00CCBB" TextColor="White" Margin="0,0,0,5" x:Name="AdvancedOptionsButton" Text="Advanced options" Clicked="AdvancedOptionsButtonClicked"/>
 			
 		</StackLayout>
 
