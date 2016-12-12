@@ -11,7 +11,7 @@ const float  mmpertip = 0.59;   // the amount of mm of rain per bucket tip, this
 
 
 // Variables will change:
-int switchCloseCounter = 0;   // counter for the number of times the switch has been closed
+int tipCounter = 0;   // counter for the number of bucket tips
 int switchState = 0;         // current state of the switch
 int lastSwitchState = 0;     // previous state of the switch
 
@@ -35,7 +35,7 @@ void loop() {
     if (switchState == HIGH) {
       // if the current state is HIGH then the button
       // wend from off to on:
-      switchCloseCounter ++;
+      tipCounter ++;
     }
     // Delay a little bit to avoid bouncing
     delay(20);
