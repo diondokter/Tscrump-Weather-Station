@@ -1,0 +1,1 @@
+This code lacks a function that sends the amount of rain that has fallen (equal to the product of mmpertip and tipCounter) over the LoRa network, and then resets the tipCounter variable. This is dependent on the entire codebase.
