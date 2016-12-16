@@ -2,8 +2,6 @@ package sample;
 
 import org.eclipse.paho.client.mqttv3.*;
 
-import java.util.Scanner;
-
 /**
  * Created by ali on 11/28/16.
  */
@@ -159,13 +157,14 @@ public class PahoMqttClient implements MqttCallback {
     }
 
     public static void main(String[] args){
-        Scanner scan = new Scanner(System.in);
-        System.out.println("Topic: ");
-        String topic = scan.nextLine();
-        System.out.println("Data: ");
-        String data = scan.nextLine();
-        PahoMqttClient client = new PahoMqttClient("tcp://localhost:1883","Beerus-sama");
-        client.subscribe(topic);
-        client.publish(topic,data);
+//        Scanner scan = new Scanner(System.in);
+//        System.out.println("Topic: ");
+//        String topic = scan.nextLine();
+//        System.out.println("Data: ");
+//        String data = scan.nextLine();
+//        PahoMqttClient client = new PahoMqttClient("tcp://localhost:1883","Beerus-sama");
+//        client.subscribe(topic);
+//        client.publish(topic,data);
+        PahoMqttClient ttn = new PahoMqttClient("x","as","asd","asdf");
     }
 }

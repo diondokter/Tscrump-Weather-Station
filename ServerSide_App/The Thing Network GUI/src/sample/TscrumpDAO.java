@@ -1,4 +1,4 @@
-package sample;
+/*package sample;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -6,7 +6,7 @@ import java.util.ArrayList;
 /**
  * Created by Cell on 12/12/2016.
  */
-public class TscrumpDAO {
+/*public class TscrumpDAO {
 
     public static ArrayList<String> getCities(String cityNamePart) // gives all names of cities starting with cityNamePart. This part you can find in the slides.
     {
@@ -75,4 +75,4 @@ public class TscrumpDAO {
     }
 
 
-}
+}*/
