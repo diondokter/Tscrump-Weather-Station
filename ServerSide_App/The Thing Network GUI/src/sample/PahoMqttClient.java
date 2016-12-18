@@ -36,6 +36,7 @@ import org.eclipse.paho.client.mqttv3.*;
 
 public class PahoMqttClient implements MqttCallback {
     private MqttClient client;
+    private boolean error = false;
     //forTTN
     public PahoMqttClient(String serverURI, String clientID, String appEUI, String appAccessKey){
         try {
@@ -44,8 +45,10 @@ public class PahoMqttClient implements MqttCallback {
             connectOptions.setPassword(appAccessKey.toCharArray());
             client = new MqttClient(serverURI, clientID);
             client.connect();
-        }catch (MqttException e){
-            e.printStackTrace();
+        }catch (Exception e){
+            error=true;
+            System.out.println("wow");
+
         }
     }
     //normal mqtt server
@@ -154,6 +157,10 @@ public class PahoMqttClient implements MqttCallback {
 
     public String sendNttTopic(){
         return "+/devices/<DeviceEUI>/down";
+    }
+
+    public boolean getError(){
+        return error;
     }
 
     public static void main(String[] args){

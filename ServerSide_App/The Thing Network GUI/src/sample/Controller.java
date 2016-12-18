@@ -57,8 +57,16 @@ public class Controller {
 
 
     public void connectAction(ActionEvent event)throws Exception{
-        sceneChanger("TtnClient.fxml",event);
         paho = new PahoMqttClient(uriField.getText(),clientIDField.getText(),appEUIField.getText(),appAKField.getText());
+        if (paho.getError() == false){
+            sceneChanger("TtnClient.fxml",event);
+        }
+        else {
+            System.out.println("SOMTHING WENT WRONG!!!");
+
+        }
+//        sceneChanger("TtnClient.fxml",event);
+
 
     }
 
