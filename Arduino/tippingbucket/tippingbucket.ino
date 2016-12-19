@@ -7,28 +7,20 @@
  ***************************/
 
 const int  switchPin = 2;    // the pin that the reed switch is attached to 
-const float  mmpertip = 0.59;   // the amount of mm of rain per bucket tip, this number depends on how the system is calibrated
-
 
 // Variables will change:
 int tipCounter = 0;   // counter for the number of bucket tips
 int switchState = 0;         // current state of the switch
 int lastSwitchState = 0;     // previous state of the switch
 
-
 void setup() {
   // initialize the button pin as a input:
   pinMode(switchPin, INPUT);
 }
 
-
-
-
 void loop() {
   // read the switch input pin:
   switchState = digitalRead(switchPin);
-
-
   // compare the buttonState to its previous state
   if (switchState != lastSwitchState) {
     // if the state has changed, increment the counter
@@ -43,7 +35,4 @@ void loop() {
   // save the current state as the last state,
   //for next time through the loop
   lastSwitchState = switchState;
-
-
 }
-
