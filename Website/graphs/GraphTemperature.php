@@ -30,17 +30,19 @@ $x_axis[$index] = $row["Date"]; // Gives the x_axis the Time
 
 /* Graph Settings */
 $graph = new Graph(1100,700); // Creates a new Graph with Width 1000 Pixels and Height 500 Pixels.
+$graph->title->Set('Temperature');
 $graph->img->SetMargin(60,0,40,140);  // Margin from the Sides, all 40.
 $graph->img->SetAntiAliasing();
 $graph->SetScale("textlin"); // Makes the Text Linear
 $graph->SetShadow();
+
 $graph->xaxis->SetTickLabels($x_axis); // Sets the Labels on the X-Axis
-$graph->yaxis->scale->SetAutoMin(0); // Sets the minimum Value to 0, not neccesarily needed.
 $graph->xaxis->SetTitle("Time(Hours) ->",'center');
-$graph->yaxis->SetTitle("Temperature(Celcius)", 'center');
-$graph->title->Set('Temperature');
-$graph->yaxis->title->SetMargin(20);
+$graph->xaxis->SetPos( 'min' );
 $graph->xaxis->SetLabelAngle(50);
+
+$graph->yaxis->title->SetMargin(20);
+$graph->yaxis->SetTitle("Temperature(Celcius)", 'center');
 $graph->yscale->SetGrace(5); // Used to make the Graph a bit larger than the maximum Y value.
 
 /* Line Settings */
