@@ -26,12 +26,13 @@ namespace Tscrump_App.Droid
 		{
 			try
 			{
+				// Use the correct charset
 				new I18N.West.CP1250();
-				//Set our encoding to something that mysql can understand
-				Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
-				string ConnectionString = $"Server={Tscrump_App.DatabaseManager.Server}; Port={Tscrump_App.DatabaseManager.Port}; Database={Tscrump_App.DatabaseManager.Database}; Uid={Tscrump_App.DatabaseManager.UID}; Pwd={Tscrump_App.DatabaseManager.Password};";
+				//Construct the connection string
+				string ConnectionString = $"Server={Tscrump_App.DatabaseManager.Server}; Port={Tscrump_App.DatabaseManager.Port}; Database={Tscrump_App.DatabaseManager.Database}; Uid={Tscrump_App.DatabaseManager.UID}; Pwd={Tscrump_App.DatabaseManager.Password}; charset=utf8;";
 
+				// Create and open the connection
 				Connection = new MySqlConnection(ConnectionString);
 				Connection.Open();
 			}

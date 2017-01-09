@@ -173,7 +173,14 @@ namespace Tscrump_App
 			EndDatePicker.DateSelected += Update;
 
 			// Create and add the primary axis
-			ChartView.PrimaryAxis = new DateTimeAxis() { LabelsIntersectAction = AxisLabelsIntersectAction.Hide, EdgeLabelsDrawingMode = EdgeLabelsDrawingMode.Hide, LabelStyle = new ChartAxisLabelStyle() { LabelFormat = CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern + " - " + CultureInfo.CurrentCulture.DateTimeFormat.ShortTimePattern } };
+			if (Device.OS == TargetPlatform.Windows)
+			{
+				ChartView.PrimaryAxis = new DateTimeAxis() { LabelsIntersectAction = AxisLabelsIntersectAction.Hide, EdgeLabelsDrawingMode = EdgeLabelsDrawingMode.Hide, LabelStyle = new ChartAxisLabelStyle() { LabelFormat = CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern + " - " + CultureInfo.CurrentCulture.DateTimeFormat.ShortTimePattern } };
+			}
+			else // Android doesn't like the short format, so let's just not do it
+			{
+				ChartView.PrimaryAxis = new DateTimeAxis() { LabelsIntersectAction = AxisLabelsIntersectAction.Hide, EdgeLabelsDrawingMode = EdgeLabelsDrawingMode.Hide };
+			}
 
 			// Temperature -------------------------------------------------------
 			NumericalAxis TemperatureAxis = YAxisCreation("Temperature (C)", Color.Blue);
@@ -224,6 +231,7 @@ namespace Tscrump_App
 
 		public void Update(bool DoNewQuery = true)
 		{
+			// Make sure the date pickers can't be reversed in date
 			if (EndDatePicker.Date < StartDatePicker.Date)
 			{
 				EndDatePicker.Date = StartDatePicker.Date;
@@ -233,24 +241,27 @@ namespace Tscrump_App
 				StartDatePicker.Date = EndDatePicker.Date;
 			}
 
-			if (DoNewQuery || true)
+			if (DoNewQuery)
 			{
-
 				if (DatabaseManager.GetInstance() == null)
 				{
 					return;
 				}
 
+				// Get all the data from the database
 				var Values = DatabaseManager.GetInstance().ExecuteReader($"Select {nameof(DataPoint.Date)},{nameof(DataPoint.Temperature)},{nameof(DataPoint.Pressure)},{nameof(DataPoint.Humidity)},{nameof(DataPoint.Brightness)},{nameof(DataPoint.Precipitation)} from sensor where Date >= {StartDatePicker.Date.AddDays(-1).ToSQLString()} and Date <= {EndDatePicker.Date.AddDays(1).AddHours(11.99999).ToSQLString()}");
 
+				// Fill the datapoint array
 				DataPoint[] Models = new DataPoint[Values?.Count ?? 0];
 				for (int i = 0; i < Values.Count; i++)
 				{
 					Models[i] = new DataPoint((DateTime)Values[i][0], (float)Values[i][1], (float)Values[i][2], (float)Values[i][3], (float)Values[i][4], (float)Values[i][5]);
 				}
 
+				// Set the binding context so the chart knows about the data
 				this.BindingContext = new DataPointCollection(Models);
 
+				// Set the x axis min and max
 				((DateTimeAxis)ChartView.PrimaryAxis).Minimum = StartDatePicker.Date;
 				((DateTimeAxis)ChartView.PrimaryAxis).Maximum = EndDatePicker.Date.AddHours(11.999999);
 
@@ -293,6 +304,7 @@ namespace Tscrump_App
 				}
 			}
 
+			// Set the visibilities
 			TemperatureSeries.IsVisible = TemperatureSwitch.IsToggled;
 			TemperatureSeries.YAxis.IsVisible = TemperatureSwitch.IsToggled;
 

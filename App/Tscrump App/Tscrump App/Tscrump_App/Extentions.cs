@@ -9,6 +9,11 @@ namespace Tscrump_App
 {
 	public static class Extentions
 	{
+		/// <summary>
+		/// Transforms a DateTime into a string, readable by MySQL
+		/// </summary>
+		/// <param name="Value">The datetime value to convert</param>
+		/// <returns>A MySQL suitable formatted string.</returns>
 		public static string ToSQLString(this DateTime Value)
 		{
 			return $"\"{Value.ToString("yyyy-MM-dd HH:mm:ss")}\"";
