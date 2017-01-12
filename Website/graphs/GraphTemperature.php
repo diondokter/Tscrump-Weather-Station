@@ -29,33 +29,33 @@ $x_axis[$index] = $row["Date"]; // Gives the x_axis the Time
 }
 
 /* Graph Settings */
-$graph = new Graph(1100,700); // Creates a new Graph with Width 1000 Pixels and Height 500 Pixels.
-$graph->title->Set('Temperature');
-$graph->img->SetMargin(60,0,40,140);  // Margin from the Sides, all 40.
-$graph->img->SetAntiAliasing();
+$graph = new Graph(1100,700); // Creates a new Graph with Width 1000 Pixels and Height 500 Pixels
+$graph->title->Set('Temperature'); // Set's the title for the graph
+$graph->img->SetMargin(60,0,40,140);  // Margin from the Sides, all 40
+$graph->img->SetAntiAliasing(); // Makes the img less blurry/edgy
 $graph->SetScale("textlin"); // Makes the Text Linear
-$graph->SetShadow();
+$graph->SetShadow(); // Put's a small shadow underneath the line
 
 $graph->xaxis->SetTickLabels($x_axis); // Sets the Labels on the X-Axis
-$graph->xaxis->SetTitle("Time(Hours) ->",'center');
-$graph->xaxis->SetPos( 'min' );
-$graph->xaxis->SetLabelAngle(50);
+$graph->xaxis->SetTitle("Time(Hours) ->",'center'); // Set's the title for the x-axis
+$graph->xaxis->SetPos( 'min' ); // Set's the position for the lowest y value, so that the x-axis scales with that.
+$graph->xaxis->SetLabelAngle(50); // Print's the label in an angle of 50 degrees.
 
-$graph->yaxis->title->SetMargin(20);
-$graph->yaxis->SetTitle("Temperature(Celcius)", 'center');
+$graph->yaxis->title->SetMargin(20); // Put's a small margin from the actual image.
+$graph->yaxis->SetTitle("Temperature(Celcius)", 'center'); // Set's the title for the y-axis
 $graph->yscale->SetGrace(5); // Used to make the Graph a bit larger than the maximum Y value.
 
 /* Line Settings */
-$p1 = new LinePlot($y_axis);
+$p1 = new LinePlot($y_axis); // Add's the line, temperature, to the graph.
 
-$p1->mark->SetType(MARK_SQUARE);
-$p1->mark->SetFillColor("darkblue");
-$p1->mark->SetWidth(5);
-$p1->SetColor("blue");
-$p1->SetCenter();
+$p1->mark->SetType(MARK_SQUARE); // Make's the points(Temperatures) a square.
+$p1->mark->SetFillColor("darkblue"); // Fills the square with darkblue
+$p1->mark->SetWidth(5); // Sets the square width
+$p1->SetColor("blue"); // Sets the line color
+$p1->SetCenter(); // Centers the line.
 
 
-$graph->Add($p1);
-$p1->value->Show();
-$graph->Stroke();
+$graph->Add($p1); // Add's the line to the graph.
+$p1->value->Show(); // Show's the value's.
+$graph->Stroke(); // Print's the graph.
 ?>
