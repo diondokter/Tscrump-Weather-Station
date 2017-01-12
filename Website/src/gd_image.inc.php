@@ -107,7 +107,7 @@ class Image {
             imageantialias($this->img,$aFlg);
         }
         else {
-            //JpGraphError::RaiseL(25128);//('The function imageantialias() is not available in your PHP installation. Use the GD version that comes with PHP and not the standalone version.')
+            JpGraphError::RaiseL(25128);//('The function imageantialias() is not available in your PHP installation. Use the GD version that comes with PHP and not the standalone version.')
         }
     }
 
@@ -1363,7 +1363,7 @@ class Image {
         // Dashed line does not work with anti-alias enabled. This
         // is a limitation in GD.
         if( $this->use_anti_aliasing ) {
-//            //JpGraphError::RaiseL(25129); // Anti-alias can not be used with dashed lines. Please disable anti-alias or use solid lines.
+//            JpGraphError::RaiseL(25129); // Anti-alias can not be used with dashed lines. Please disable anti-alias or use solid lines.
         }
         
         $x1 = round($x1);
