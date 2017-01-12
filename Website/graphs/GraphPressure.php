@@ -32,7 +32,6 @@ $x_axis[$index] = $row["Date"]; // Gives the x_axis the Time
 $graph = new Graph(1100,700); // Creates a new Graph with Width 1000 Pixels and Height 500 Pixels.
 $graph->title->Set('Pressure'); // Set's the title for the graph
 $graph->img->SetMargin(60,0,40,140);  // Margin from the Sides, all 40.
-$graph->img->SetAntiAliasing(); // Makes the img less blurry/edgy
 $graph->SetScale("textlin"); // Makes the Text Linear
 $graph->SetShadow(); // Put's a small shadow underneath the line
 
