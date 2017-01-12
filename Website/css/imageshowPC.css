@@ -5,7 +5,7 @@
 
 #ImageShow{
 	width: 1100px;
-	height: 700px;
+	height: 1000px;
 	position:relative;
 }
 
@@ -51,7 +51,7 @@
 
 #ImageShow ul{
 	width: 1100px;
-	height: 700px;
+	height: 1000px;
 	list-style:none outside none;
 	position:relative;
 	overflow:hidden;
