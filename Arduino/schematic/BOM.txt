@@ -1,9 +1,20 @@
-1667759 - 2x10 1.27 pin header for programming the chip
-2409248 - ATSAMD21G18A-AU, microcontroller
-2396053 - Tactile Switch(reset)
-2293836 - Micro-USB
-2101354 - Crystal 32.xx kHz
-1685767 - DC-DC converter
-2543267 - power inductor
-1328308 - Red 0603 SMD LED
-8660417 - Schottky diode
+Aantal 	Ordernummer 	Beschrijving
+1 	1667759 	2x10 1.27 pin header for programming the chip
+1 	2409248 	ATSAMD21G18A-AU, microcontroller
+1 	2396053 	Tactile Switch(reset)
+1 	2293836 	Micro-USB
+1 	2101354 	Crystal 32.xx kHz
+1 	1685767 	DC-DC converter LM3671
+1 	1332158 	Battery IC
+1 	2543297 	power inductor
+1 	1328308 	Red 0603 SMD LED
+3 	8660417 	Schottky diode
+10 	2611927 	0.1uF capacitor
+10 	2494230 	10uF capacitor
+10 	2362095 	4.7uF capacitor
+10 	9527699 	1uF capacitor
+10 	498543		22 pF capacitors(oscilator)
+10 	9238280 	22R resistors(USB)
+10 	2059377 	5K
+10 	9238506 	1.5K
+
