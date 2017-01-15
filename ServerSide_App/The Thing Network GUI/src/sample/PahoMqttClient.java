@@ -141,7 +141,8 @@ public class PahoMqttClient implements MqttCallback {
 
     }
 
-    public void messageArrived(String s, MqttMessage mqttMessage) throws Exception {
+    public void messageArrived(String string, MqttMessage mqttMessage) throws Exception {
+        //need to be changed
         System.out.println(mqttMessage);
 
 

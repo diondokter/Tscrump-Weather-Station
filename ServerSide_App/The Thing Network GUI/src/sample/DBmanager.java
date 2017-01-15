@@ -1,6 +1,8 @@
+package sample;
+
 // define the needed includes
 
-/*import java.io.FileInputStream;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -35,7 +37,7 @@ public class DBmanager {
             try {
 //                read in the properties by using a FileInputStream and the Properties object
 //                don’t forget to close your properties file
-                FileInputStream in = new FileInputStream("/home/ali/Mysql/src/database.properties");
+                FileInputStream in = new FileInputStream("C:\\Users\\Cell\\MySQL\\Mysql\\src\\database.properties");
                 props.load(in);
                 in.close();
                 fileloaded = true;
@@ -79,4 +81,4 @@ public class DBmanager {
     public Connection getConnection() {
         return con;
     }
-}*/
+}
