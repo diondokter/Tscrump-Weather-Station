@@ -6,13 +6,19 @@
 
 	<ScrollView>
 		<StackLayout Padding="20,0">
+			<StackLayout Margin="-20,0" BackgroundColor="#00CCBB" Padding="5">
+				<Label Text="Weather Station Chart" FontSize="40" HorizontalTextAlignment="Center" TextColor="White"/>
+			</StackLayout>
 
-			<chart:SfChart x:Name="ChartView" Margin="0,10,0,10"/>
-			
+
+			<chart:SfChart x:Name="ChartView" Margin="-15,10,0,10"/>
+
+			<Button BackgroundColor="#00CCBB" TextColor="White" Text="Refresh" Clicked="Update"/>
+
 			<Label Text="Start Date" HorizontalOptions="Center"/>
-			<DatePicker HorizontalOptions="Center"/>
+			<DatePicker x:Name="StartDatePicker" HorizontalOptions="Center"/>
 			<Label Text="End Date" HorizontalOptions="Center"/>
-			<DatePicker HorizontalOptions="Center"/>
+			<DatePicker x:Name="EndDatePicker" HorizontalOptions="Center"/>
 
 			<Grid RowSpacing="0" Padding="5" HorizontalOptions="Center">
 
@@ -30,17 +36,20 @@
 
 
 				<Label Text="Temperature" Grid.Row="0" Grid.Column="0" HorizontalOptions="End"/>
-				<Switch Grid.Row="1" Grid.Column="0" HorizontalOptions="End"/>
+				<Switch x:Name="TemperatureSwitch" Grid.Row="1" Grid.Column="0" HorizontalOptions="End" IsToggled="True" Toggled="Update"/>
 				<Label Text="Pressure" Grid.Row="0" Grid.Column="1" HorizontalOptions="Center"/>
-				<Switch Grid.Row="1" Grid.Column="1" HorizontalOptions="Center"/>
+				<Switch x:Name="PressureSwitch" Grid.Row="1" Grid.Column="1" HorizontalOptions="Center" IsToggled="True" Toggled="Update"/>
 				<Label Text="Humidity" Grid.Row="0" Grid.Column="2" HorizontalOptions="Start"/>
-				<Switch Grid.Row="1" Grid.Column="2" HorizontalOptions="Start"/>
+				<Switch x:Name="HumiditySwitch" Grid.Row="1" Grid.Column="2" HorizontalOptions="Start" IsToggled="True" Toggled="Update"/>
 				<Label Text="Brightness" Grid.Row="2" Grid.Column="0" HorizontalOptions="End"/>
-				<Switch Grid.Row="3" Grid.Column="0" HorizontalOptions="End"/>
+				<Switch x:Name="BrightnessSwitch" Grid.Row="3" Grid.Column="0" HorizontalOptions="End" IsToggled="True" Toggled="Update"/>
 				<Label Text="Precipitation" Grid.Row="2" Grid.Column="1" HorizontalOptions="Center"/>
-				<Switch Grid.Row="3" Grid.Column="1" HorizontalOptions="Center"/>
+				<Switch x:Name="PrecipitationSwitch" Grid.Row="3" Grid.Column="1" HorizontalOptions="Center" IsToggled="True" Toggled="Update"/>
 
 			</Grid>
+
+			<Button BackgroundColor="#00CCBB" TextColor="White" Margin="0,0,0,5" x:Name="AdvancedOptionsButton" Text="Advanced options" Clicked="AdvancedOptionsButtonClicked"/>
+			
 		</StackLayout>
 
 	</ScrollView>

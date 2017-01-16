@@ -359,6 +359,7 @@ Source: WE-TPC 744053220.pdf</description>
 <wire x1="0" y1="15.24" x2="0" y2="0" width="0.127" layer="21"/>
 <circle x="0.9525" y="2.8575" radius="0.3175" width="0.635" layer="21"/>
 </package>
+
 <package name="LDR-ROUND">
 <circle x="0" y="0" radius="7.5" width="0.127" layer="21"/>
 <text x="-2.54" y="3.81" size="1.27" layer="25" font="vector">&gt;NAME</text>
@@ -433,6 +434,7 @@ Source: WE-TPC 744053220.pdf</description>
 <text x="-5.08" y="16.51" size="1.27" layer="25" font="vector">&gt;NAME</text>
 <text x="-5.08" y="3.81" size="1.27" layer="25" font="vector">&gt;VALUE</text>
 </package>
+
 </packages>
 <symbols>
 <symbol name="PINHEAD-FTSH">
@@ -547,6 +549,7 @@ Source: WE-TPC 744053220.pdf</description>
 <text x="0" y="15.24" size="1.778" layer="95" font="vector">&gt;NAME</text>
 <text x="0" y="-2.54" size="1.778" layer="95" font="vector">&gt;VALUE</text>
 </symbol>
+
 <symbol name="LDR-ROUND">
 <wire x1="-2.54" y1="0" x2="-2.159" y2="1.016" width="0.1524" layer="94"/>
 <wire x1="-2.159" y1="1.016" x2="-1.524" y2="-1.016" width="0.1524" layer="94"/>
@@ -593,6 +596,7 @@ Source: WE-TPC 744053220.pdf</description>
 <text x="2.54" y="10.16" size="1.27" layer="95" font="vector">&gt;NAME</text>
 <text x="2.54" y="-2.54" size="1.27" layer="95" font="vector">&gt;VALUE</text>
 </symbol>
+
 </symbols>
 <devicesets>
 <deviceset name="PINHEAD-FTSH" prefix="J">
@@ -744,6 +748,7 @@ Source: WE-TPC 744053220.pdf</description>
 </device>
 </devices>
 </deviceset>
+
 <deviceset name="LDR-ROUND" prefix="B">
 <gates>
 <gate name="G$1" symbol="LDR-ROUND" x="0" y="0"/>
@@ -796,6 +801,7 @@ Source: WE-TPC 744053220.pdf</description>
 </device>
 </devices>
 </deviceset>
+
 </devicesets>
 </library>
 </drawing>
