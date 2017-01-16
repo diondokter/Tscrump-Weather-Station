@@ -16,7 +16,7 @@ if ($conn->connect_error) {
 /* Creates variables for usage */
 $y_axis = array();
 $x_axis = array();
-$index = 0;
+$index = 23;
 $sql = "SELECT * FROM sensor group by Date desc limit 24";
 /* Gets the result from the SQL Query, when none is given it triggers an error */
 $result = $conn->query($sql) or trigger_error($mysqli->error."[$sql]");
@@ -25,7 +25,7 @@ $result = $conn->query($sql) or trigger_error($mysqli->error."[$sql]");
 while($row = mysqli_fetch_array($result)) {
 $y_axis[$index] = $row["Humidity"]; // Gives the y_axis the Temperatures
 $x_axis[$index] = $row["Date"]; // Gives the x_axis the Time
-    $index++;
+    $index--;
 }
 
 /* Graph Settings */
