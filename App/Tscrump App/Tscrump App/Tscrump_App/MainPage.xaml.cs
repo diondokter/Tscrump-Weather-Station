@@ -21,6 +21,13 @@ namespace Tscrump_App
 			LogoImage.Source = ImageSource.FromResource("Tscrump_App.TscrumpLogo.png");
 		}
 
+		protected override void OnAppearing()
+		{
+			base.OnAppearing();
+			// Hide the navbar, because Android doesn't realize an empty one is quite irritating
+			NavigationPage.SetHasNavigationBar(this, false);
+		}
+
 		private async void ViewChartButtonClicked(object sender, EventArgs e)
 		{
 			// We want to see the chart, so let's push a new chartpage on the navigation stack

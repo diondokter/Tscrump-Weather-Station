@@ -57,19 +57,23 @@ namespace Tscrump_App
 		{
 			base.OnDisappearing();
 
+			ChartSeries[] ChartSeries = ChartSource.Series.ToArray();
+			ChartSource.Series.Clear();
+
 			// Replace all series with one of the correct type.
 			// Loop through them all
-			for (int i = 0; i < ChartSource.Series.Count; i++)
+			for (int i = 0; i < ChartSeries.Length; i++)
 			{
+				// Create a new YAxis for the seris
+				RangeAxisBase YAxis = ChartSource.YAxisCreation(((XyDataSeries)ChartSeries[i]).YAxis.Title.Text, ((XyDataSeries)ChartSeries[i]).YAxis.Title.TextColor);
+
+				ChartSource.Series.Add(ChartSource.SeriesCreation[ChartSource.SeriesCreation.Keys.ElementAt(LineTypePickers[i].SelectedIndex)](YAxis, nameof(ChartPage.DataPoint.Date), ((XyDataSeries)ChartSeries[i]).YBindingPath, nameof(ChartPage.DataPointCollection.Data)));
+
 				// Set the new color of the series
 				ChartSource.Series[i].Color = ColorPickers[i].TextColor;
 				((XyDataSeries)ChartSource.Series[i]).YAxis.Title.TextColor = ColorPickers[i].TextColor;
 
-				// Create a new YAxis for the seris
-				RangeAxisBase YAxis = ChartSource.YAxisCreation(((XyDataSeries)ChartSource.Series[i]).YAxis.Title.Text, ((XyDataSeries)ChartSource.Series[i]).YAxis.Title.TextColor);
 
-				// Set the series collection element to the new value, based on the selected type
-				ChartSource.Series[i] = ChartSource.SeriesCreation[ChartSource.SeriesCreation.Keys.ElementAt(LineTypePickers[i].SelectedIndex)](YAxis, nameof(ChartPage.DataPoint.Date), ((XyDataSeries)ChartSource.Series[i]).YBindingPath, nameof(ChartPage.DataPointCollection.Data));
 			}
 
 			ChartSource.IsTemperatureVisible = TemperatureVisibleSwitch.IsToggled;
