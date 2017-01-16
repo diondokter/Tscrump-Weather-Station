@@ -15,7 +15,11 @@
 				<Label Text="Make Weather Stations great again!" FontSize="24" HorizontalTextAlignment="Center" TextColor="White"/>
 			</StackLayout>
 
-			<Button Text="View Chart" Clicked="ViewChartButtonClicked"/>
+			<Image x:Name="LogoImage" Aspect="AspectFit" HeightRequest="200" HorizontalOptions="Center"/>
+
+			<Button BackgroundColor="#00CCBB" TextColor="White" Margin="5,0" Text="View Chart" Clicked="ViewChartButtonClicked"/>
+			<Button BackgroundColor="#00CCBB" TextColor="White"  Margin="5,0" Text="View Website" Clicked="ViewWebsiteButtonClicked"/>
+			<Button BackgroundColor="#00CCBB" TextColor="White"  Margin="5,0" Text="View Source" Clicked="ViewSourceButtonClicked"/>
 		</StackLayout>
 
 	</ScrollView>

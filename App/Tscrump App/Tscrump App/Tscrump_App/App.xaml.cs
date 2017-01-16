@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 
@@ -9,8 +10,12 @@ namespace Tscrump_App
 {
 	public partial class App : Application
 	{
+		public static CultureInfo DeviceCulture;
+
 		public App()
 		{
+			DeviceCulture = DependencyService.Get<ICultureProvider>().GetCulture();
+
 			InitializeComponent();
 
 			MainPage = new NavigationPage(new MainPage());

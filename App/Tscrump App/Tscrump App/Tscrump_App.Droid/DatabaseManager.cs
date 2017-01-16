@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 using System.Data;
 using System.Data.Common;
 using MySql.Data.MySqlClient;
-using Tscrump_App.UWP;
+using Tscrump_App.Droid;
 using Xamarin.Forms;
 
 [assembly: Xamarin.Forms.Dependency(typeof(DatabaseManager))]
-namespace Tscrump_App.UWP
+namespace Tscrump_App.Droid
 {
 	public class DatabaseManager : IDatabaseManager, IDisposable
 	{
@@ -26,11 +26,13 @@ namespace Tscrump_App.UWP
 		{
 			try
 			{
-				//Set our encoding to something that mysql can understand
-				Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+				// Use the correct charset
+				new I18N.West.CP1250();
 
-				string ConnectionString = $"Server={Tscrump_App.DatabaseManager.Server}; Port={Tscrump_App.DatabaseManager.Port}; Database={Tscrump_App.DatabaseManager.Database}; Uid={Tscrump_App.DatabaseManager.UID}; Pwd={Tscrump_App.DatabaseManager.Password}; SslMode=None;";
+				//Construct the connection string
+				string ConnectionString = $"Server={Tscrump_App.DatabaseManager.Server}; Port={Tscrump_App.DatabaseManager.Port}; Database={Tscrump_App.DatabaseManager.Database}; Uid={Tscrump_App.DatabaseManager.UID}; Pwd={Tscrump_App.DatabaseManager.Password}; charset=utf8;";
 
+				// Create and open the connection
 				Connection = new MySqlConnection(ConnectionString);
 				Connection.Open();
 			}
