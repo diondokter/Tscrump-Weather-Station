@@ -1,58 +1,48 @@
 package sample;
-
-import java.sql.*;
-import java.util.ArrayList;
+//
+//import java.sql.*;
+import java.text.SimpleDateFormat;
+//import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  * Created by Cell on 12/12/2016.
  */
 public class TscrumpDAO {
-    private static TscrumpDAO uniqueInstance=null;
-    private static Connection conn = null ;
-    private TscrumpDAO(DBmanager db){ //precondition dbExisis()
-        conn = db.getConnection();
-        System.err.println("The database doesn’t exist....");
+
+
+//    public void weatherDAO() {
+//        DBmanager dbcon = null;
+//        Connection conn = null;
+//
+//        try {
+//            make a connection with the database
+//            dbcon = DBmanager.getInstance();
+//            conn = dbcon.getConnection();
+//
+//            Statement stmt = conn.createStatement(); //make a Statement object
+//            Calendar cal = Calendar.getInstance();
+//            SimpleDateFormat sdft = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+//            String time = sdft.format(cal.getTime());
+//
+//
+//date is primary key
+//            stmt.executeUpdate("INSERT INTO sensor (Date, Temperature, Pressure, Humidity,Brightness,Precipitation,Latitude,longitude) "
+//                    +"VALUES ('2018-05-21 15:00:00',21,1.058,42,58,5,NULL ,NULL )");
+//
+//            conn.close();
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//
+//        } finally {
+//            dbcon.close();
+//        }
+//    }
+
+    public static void main(String [] args){
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sdft = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String time = sdft.format(cal.getTime());
+        System.out.print(time);
     }
-
-    public static synchronized TscrumpDAO getInstance(DBmanager db) { // apply singleton design pattern for tscrumpDAO
-        if (uniqueInstance == null)
-            uniqueInstance = new TscrumpDAO(db);
-        return uniqueInstance;
-    }
-
-    public ArrayList<String> getCities(String cityName) {
-        ArrayList<String> cities = new ArrayList<String>();
-        try{
-            // Execute the query
-            PreparedStatement pstmt = conn.prepareStatement("SELECT city.name FROM city WHERE Name LIKE ?") ;
-
-            pstmt.setString(1, cityName + "%");
-            ResultSet rs = pstmt.executeQuery();
-
-            // Loop through the result set
-            while( rs.next())
-                cities.add(rs.getString("Name") ) ;
-        }catch( SQLException se ) { se.printStackTrace(); }
-        return cities;
-    }
-    public ArrayList<String> getCitiesInCountry(String country){
-        ArrayList<String> cities = new ArrayList<String>();
-        try{
-            PreparedStatement pstmt = conn.prepareStatement("SELECT city.name" +
-                    " FROM city INNER JOIN country" +
-                    " WHERE country.name LIKE ?" +
-                    " AND country.code = city.countrycode");
-            pstmt.setString(1, country + "%");
-            ResultSet rs = pstmt.executeQuery();
-
-            while(rs.next()){
-                cities.add(rs.getString("Name"));
-            }
-        }catch (SQLException e){
-            e.printStackTrace();
-        }
-        return cities;
-    }
-
-
 }

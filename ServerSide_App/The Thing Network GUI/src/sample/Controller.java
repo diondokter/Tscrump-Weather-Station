@@ -85,9 +85,11 @@ public class Controller {
             subTopicFiled.setVisible(false);
             subTopicFiled.setText(paho.receiveNttTopic());
             paho.subscribe(paho.receiveNttTopic());
+            paho.weatherDAO();
         }
         else {
             paho.subscribe(subTopicFiled.getText());
+            paho.weatherDAO();
         }
     }
 

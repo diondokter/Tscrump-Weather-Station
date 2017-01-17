@@ -2,6 +2,12 @@ package sample;
 
 import org.eclipse.paho.client.mqttv3.*;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 /**
  * Created by ali on 11/28/16.
  */
@@ -37,6 +43,9 @@ import org.eclipse.paho.client.mqttv3.*;
 public class PahoMqttClient implements MqttCallback {
     private MqttClient client;
     private boolean error = false;
+    private float temperature, pressure, humidity, brightness, precipitation;
+    private int latitude,longitude;
+
     //forTTN
     public PahoMqttClient(String serverURI, String clientID, String appEUI, String appAccessKey){
         try {
@@ -144,13 +153,14 @@ public class PahoMqttClient implements MqttCallback {
     public void messageArrived(String string, MqttMessage mqttMessage) throws Exception {
         //need to be changed
         System.out.println(mqttMessage);
-
-
     }
-
     public void deliveryComplete(IMqttDeliveryToken iMqttDeliveryToken) {
 
+
     }
+
+
+}
 
     public String receiveNttTopic(){
         return "+/devices/+/up";
@@ -162,6 +172,63 @@ public class PahoMqttClient implements MqttCallback {
 
     public boolean getError(){
         return error;
+    }
+
+    public float getTemperature() {
+        return temperature;
+    }
+
+    public float getPressure() {
+        return pressure;
+    }
+
+    public float getHumidity() {
+        return humidity;
+    }
+
+    public float getBrightness() {
+        return brightness;
+    }
+
+    public float getPrecipitation() {
+        return precipitation;
+    }
+
+    public int getLatitude() {
+        return latitude;
+    }
+
+    public int getLongitude() {
+        return longitude;
+    }
+
+    public void weatherDAO() {
+        DBmanager dbcon = null;
+        Connection conn = null;
+
+        try {
+            //make a connection with the database
+            dbcon = DBmanager.getInstance();
+            conn = dbcon.getConnection();
+
+            Statement stmt = conn.createStatement(); //make a Statement object
+            Calendar cal = Calendar.getInstance();
+            SimpleDateFormat sdft = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String time = sdft.format(cal.getTime());
+
+
+//date is primary key
+            stmt.executeUpdate("INSERT INTO sensor (Date, Temperature, Pressure, Humidity,Brightness,Precipitation,Latitude,longitude) "
+                    +"VALUES (" +time+ ","+temperature+","+pressure+","+humidity+","+brightness+","+precipitation+","+latitude+","+longitude+")");
+            //("INSERT INTO sensor (Date, Temperature, Pressure, Humidity,Brightness,Precipitation,Latitude,longitude) "+"VALUES ('2018-05-21 15:00:00',21,1.058,42,58,5,NULL ,NULL )");
+
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        } finally {
+            dbcon.close();
+        }
     }
 
     public static void main(String[] args){
