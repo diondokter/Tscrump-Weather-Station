@@ -1,5 +1,6 @@
 #include <TheThingsNetwork.h>
 #include <Adafruit_Sensor.h>
+#include <Adafruit_BMP085_U.h>
 #include <DHT.h>
 #include <DHT_U.h>
 
@@ -8,11 +9,11 @@ const char *appEui = "0000000000000000";
 const char *appKey = "00000000000000000000000000000000";
 
 #define LightPin A0
-#define loraSerial Serial1
-#define debugSerial Serial
+#define loraSerial Serial
+#define debugSerial SerialUSB
 
 #define freqPlan TTN_FP_EU868
-#define DHTPIN 2
+#define DHTPIN 4
 #define DHTTYPE DHT11
 
 DHT_Unified dht(DHTPIN, DHTTYPE);
@@ -21,7 +22,7 @@ TheThingsNetwork ttn(loraSerial, debugSerial, freqPlan);
 
 void setup() {
   loraSerial.begin(57600);
-  debugSerial.begin(9600);
+  debugSerial.begin(115200);
 
   // Wait a maximum of 10s for Serial Monitor
   while (!debugSerial && millis() < 10000);
@@ -32,8 +33,8 @@ void setup() {
   debugSerial.println("-- JOIN");
   ttn.join(appEui, appKey);
   ttn.showStatus();
-  if(!dht.begin() || !bmp.begin()){
-    debugSerial.println("DHT11 or BMP180 not working");
+  if(!bmp.begin()){
+    debugSerial.println("BMP180 not working");
   }  
   sensor_t humidity;
   sensor_t temperature;
@@ -68,6 +69,20 @@ void loop() {
     debugSerial.println("%");
   }
   bmp.getEvent(&event);
+  if (isnan(event.pressure)) {
+    debugSerial.println("Error reading humidity!");
+  }
+  else {
+    debugSerial.print("Pressure: ");
+    debugSerial.print(event.pressure);
+    debugSerial.println(" hPa");
+  }
+  float bmpTemperature;
+  bmp.getTemperature(&bmpTemperature);
+
+  debugSerial.print("Temperature: ");
+  debugSerial.print(bmpTemperature);
+  debugSerial.println(" *C");
   
   
   /*byte payload[6];
@@ -87,5 +102,5 @@ void loop() {
 
   ttn.sendBytes(payload, sizeof(payload));*/
 
-  delay(20000);
+  delay(200);
 }
