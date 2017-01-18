@@ -1,12 +1,11 @@
-#include <TheThingsNetwork.h>
 #include <Adafruit_Sensor.h>
 #include <Adafruit_BMP085_U.h>
 #include <DHT.h>
 #include <DHT_U.h>
 
 // Set your AppEUI and AppKey
-const char *appEui = "0000000000000000";
-const char *appKey = "00000000000000000000000000000000";
+const char *appEui = "70B3D57EF000335E";
+const char *appKey = "CC745AC6D0373813AA14466BE367D301";
 
 #define LightPin A0
 #define loraSerial Serial
@@ -15,92 +14,79 @@ const char *appKey = "00000000000000000000000000000000";
 #define freqPlan TTN_FP_EU868
 #define DHTPIN 4
 #define DHTTYPE DHT11
-
+#define SENSORS 5
 DHT_Unified dht(DHTPIN, DHTTYPE);
 Adafruit_BMP085_Unified bmp = Adafruit_BMP085_Unified(55);
-TheThingsNetwork ttn(loraSerial, debugSerial, freqPlan);
+
 
 void setup() {
   loraSerial.begin(57600);
   debugSerial.begin(115200);
-
+  delay(10000);
+  loraSerial.println("mac set appkey D2800EA3EE7DA994252AEE2944B0A093");
+  delay(100);
+  loraSerial.println("mac set appeui 70B3D57ED00016FA");
+  delay(100);
+  loraSerial.println("mac join otaa");
+  delay(5000);
+  while (loraSerial.available()) {
+    debugSerial.write(loraSerial.read());
+  }
   // Wait a maximum of 10s for Serial Monitor
   while (!debugSerial && millis() < 10000);
   pinMode(LightPin, INPUT);
-  debugSerial.println("-- STATUS");
-  ttn.showStatus();
 
-  debugSerial.println("-- JOIN");
-  ttn.join(appEui, appKey);
-  ttn.showStatus();
-  if(!bmp.begin()){
+  if (!bmp.begin()) {
     debugSerial.println("BMP180 not working");
-  }  
+  }
   sensor_t humidity;
   sensor_t temperature;
-  
-  dht.humidity().getSensor(&humidity);  
+
+  dht.humidity().getSensor(&humidity);
   dht.temperature().getSensor(&temperature);
 }
 
 void loop() {
-  debugSerial.println("-- LOOP");
-  
+  int tmpSensorArray[5];
   uint16_t light = analogRead(LightPin);
   
-  sensors_event_t event;  
+  sensors_event_t event;
   dht.temperature().getEvent(&event);
   if (isnan(event.temperature)) {
     debugSerial.println("Error reading temperature!");
-  }
-  else {
-    debugSerial.print("Temperature: ");
-    debugSerial.print(event.temperature);
-    debugSerial.println(" *C");
-  }
-  // Get humidity event and print its value.
+  } 
+  tmpSensorArray[0] = (int)event.temperature;
+  
   dht.humidity().getEvent(&event);
   if (isnan(event.relative_humidity)) {
     debugSerial.println("Error reading humidity!");
   }
-  else {
-    debugSerial.print("Humidity: ");
-    debugSerial.print(event.relative_humidity);
-    debugSerial.println("%");
-  }
+  tmpSensorArray[3] = (int)event.relative_humidity;  
+  
+  // Get humidity event and print its value.
   bmp.getEvent(&event);
   if (isnan(event.pressure)) {
     debugSerial.println("Error reading humidity!");
   }
-  else {
-    debugSerial.print("Pressure: ");
-    debugSerial.print(event.pressure);
-    debugSerial.println(" hPa");
-  }
+  tmpSensorArray[2] = (int)event.pressure;
+  
+  
   float bmpTemperature;
   bmp.getTemperature(&bmpTemperature);
 
-  debugSerial.print("Temperature: ");
-  debugSerial.print(bmpTemperature);
-  debugSerial.println(" *C");
+  tmpSensorArray[1] = (int)bmpTemperature;
   
-  
-  /*byte payload[6];
-  payload[0] = highByte(temperature);
-  payload[1] = lowByte(temperature);
-  payload[2] = highByte(humidity);
-  payload[3] = lowByte(humidity);
-  payload[4] = highByte(light);
-  payload[5] = lowByte(light);
-  
-  debugSerial.print("Temperature: ");
-  debugSerial.println(temperature);
-  debugSerial.print("Humidity: ");
-  debugSerial.println(humidity);
-  debugSerial.print("Light level: ");
-  debugSerial.println(light);
+  debugSerial.println("Sending LoRa packet");
+  loraSerial.print("mac tx uncnf 123 ");
+  for(int i = 0; i < SENSORS; i++){
+    loraSerial.print((int)(tmpSensorArray[i]));
+    if(i < (SENSORS - 1)){
+      loraSerial.print('A');
+    }
+  }
+  loraSerial.println();
 
-  ttn.sendBytes(payload, sizeof(payload));*/
 
-  delay(200);
+
+  delay(20000);
 }
