@@ -12,6 +12,11 @@ import java.util.Calendar;
  * Created by ali on 11/28/16.
  */
 
+//dev eui 00 04 A3 0B 00 1C 04 FE
+// app eui 70 B3 D5 7E D0 00 18 F6
+//app key  C3485F16C6EFFF94FE9B95AB8E7EDAAE
+//netwerk B602CE2BE6B5EF52B0B9C8D8740F70BE
+//app session D3D35C1845B657F4490157FC487B831E
 /**
  * https://www.thethingsnetwork.org/docs/current/mqtt/
  * https://mosquitto.org/man/mosquitto_sub-1.html
@@ -45,18 +50,20 @@ public class PahoMqttClient implements MqttCallback {
     private boolean error = false;
     private float temperature, pressure, humidity, brightness, precipitation;
     private int latitude,longitude;
+    String mqttData;
 
     //forTTN
     public PahoMqttClient(String serverURI, String clientID, String appEUI, String appAccessKey){
         try {
+
             MqttConnectOptions connectOptions = new MqttConnectOptions();
             connectOptions.setUserName(appEUI);
             connectOptions.setPassword(appAccessKey.toCharArray());
             client = new MqttClient(serverURI, clientID);
-            client.connect();
+            client.connect(connectOptions);
         }catch (Exception e){
             error=true;
-            System.out.println("wow");
+            System.out.println(e);
 
         }
     }
@@ -153,14 +160,21 @@ public class PahoMqttClient implements MqttCallback {
     public void messageArrived(String string, MqttMessage mqttMessage) throws Exception {
         //need to be changed
         System.out.println(mqttMessage);
+        mqttData = mqttMessage.toString();
+        String [] mqttDataArray = mqttData.split("([{}])");
+
+        System.out.println("index0 "+mqttDataArray[0]);
+        System.out.println("index1 "+mqttDataArray[1]);
+        System.out.println("index2 "+mqttDataArray[2]);
+        System.out.println("index3 "+mqttDataArray[3]);
+        String weatherData = mqttDataArray[2];
+        String[] weatherDataArray = weatherData.split(":");
+        weatherData = weatherDataArray[1];
     }
     public void deliveryComplete(IMqttDeliveryToken iMqttDeliveryToken) {
 
 
     }
-
-
-}
 
     public String receiveNttTopic(){
         return "+/devices/+/up";
@@ -174,33 +188,6 @@ public class PahoMqttClient implements MqttCallback {
         return error;
     }
 
-    public float getTemperature() {
-        return temperature;
-    }
-
-    public float getPressure() {
-        return pressure;
-    }
-
-    public float getHumidity() {
-        return humidity;
-    }
-
-    public float getBrightness() {
-        return brightness;
-    }
-
-    public float getPrecipitation() {
-        return precipitation;
-    }
-
-    public int getLatitude() {
-        return latitude;
-    }
-
-    public int getLongitude() {
-        return longitude;
-    }
 
     public void weatherDAO() {
         DBmanager dbcon = null;
@@ -232,14 +219,20 @@ public class PahoMqttClient implements MqttCallback {
     }
 
     public static void main(String[] args){
-//        Scanner scan = new Scanner(System.in);
-//        System.out.println("Topic: ");
-//        String topic = scan.nextLine();
-//        System.out.println("Data: ");
-//        String data = scan.nextLine();
-//        PahoMqttClient client = new PahoMqttClient("tcp://localhost:1883","Beerus-sama");
-//        client.subscribe(topic);
-//        client.publish(topic,data);
-        PahoMqttClient ttn = new PahoMqttClient("x","as","asd","asdf");
+        //dev eui 00 04 A3 0B 00 1C 04 FE
+// app eui 70 B3 D5 7E D0 00 18 F6
+//app key  C3485F16C6EFFF94FE9B95AB8E7EDAAE
+//netwerk B602CE2BE6B5EF52B0B9C8D8740F70BE
+//app session D3D35C1845B657F4490157FC487B831E
+        String id = "70B3D57ED00016FA";
+        String serveruri = "tcp://staging.thethingsnetwork.org:1883";
+        String appEUI= "70B3D57ED00016FA";
+        String appKey = "PlGBB/sm6KysRHZik1ot9oFBnSPauMyt7MHJXosW+Wc=";
+        String pid = "me";
+        String eui = "70B3D57ED00018F6";
+        String key = "r7cAAHo0pY17udmgsvIP9HvL1mlmCbzh9kWbOQGKVLs=";
+        PahoMqttClient ttn = new PahoMqttClient(serveruri,pid,eui,key);
+        ttn.subscribe("+/devices/+/up");
+
     }
 }
