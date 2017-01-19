@@ -1,7 +1,4 @@
 package sample;
-
-// define the needed includes
-
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
@@ -37,16 +34,18 @@ public class DBmanager {
             try {
 //                read in the properties by using a FileInputStream and the Properties object
 //                don’t forget to close your properties file
-                FileInputStream in = new FileInputStream("C:\\Users\\Cell\\MySQL\\Mysql\\src\\database.properties");
+                FileInputStream in = new FileInputStream("D:\\Tscrump-Weather-Station\\ServerSide_App\\TheThingNetworkGUI\\src\\sample\\database.properties");
                 props.load(in);
                 in.close();
                 fileloaded = true;
+                System.out.println("im");
             }
             catch (IOException ioex) {
-                System.out.println("&quot;IO Exception:&quot; + ioex.getMessage()");
+                System.out.println("IO Exception: " + ioex.getMessage());
                 fileloaded = false;
             }
             if (fileloaded) {
+                System.out.println("im");
 //                read in your properties by using your properties object
 //                make a connection
                 String drivers = props.getProperty("jdbc.drivers");
@@ -54,7 +53,10 @@ public class DBmanager {
                 String url = props.getProperty("jdbc.url");
                 String username = props.getProperty("jdbc.username");
                 String password = props.getProperty("jdbc.password");
+                System.out.println("im");
                 con = DriverManager.getConnection(url, username,password);
+                System.out.println("im");
+
                 exists = true;
             }
         }

@@ -2,6 +2,8 @@ package sample;
 
 import org.eclipse.paho.client.mqttv3.*;
 
+import javax.xml.bind.DatatypeConverter;
+import java.nio.ByteBuffer;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -53,6 +55,11 @@ public class PahoMqttClient implements MqttCallback {
     private int latitude = 0;
     private int longitude = 0;
     private String mqttData;
+    String weatherData;
+    boolean newData = false;
+
+    DBmanager dbcon = null;
+    Connection conn = null;
 
     //Default Tscrump Mqtt credentials
     private String clientID = "Tscrump";
@@ -179,24 +186,60 @@ public class PahoMqttClient implements MqttCallback {
 
     }
 
+    public int baseToint(String base64){
+        byte []  x = DatatypeConverter.parseBase64Binary(base64);
+        ByteBuffer wrapped = ByteBuffer.wrap(x); // big-endian by default
+        int num = wrapped.getShort();
+        return num;
+    }
+
     public void messageArrived(String string, MqttMessage mqttMessage) throws Exception {
         //need to be changed
         System.out.println(mqttMessage);
         mqttData = mqttMessage.toString();
+
         String [] mqttDataArray = mqttData.split("([{}])");
 
-        System.out.println("index0 "+mqttDataArray[0]);
-        System.out.println("index1 "+mqttDataArray[1]);
+
         System.out.println("index2 "+mqttDataArray[2]);
-        System.out.println("index3 "+mqttDataArray[3]);
-        String weatherData = mqttDataArray[2];
+
+        weatherData = mqttDataArray[2];
+
         String[] weatherDataArray = weatherData.split(":");
         weatherData = weatherDataArray[1];
+        System.out.println(weatherData);
+        weatherDataArray = weatherData.split(",");
+        String [] temp1 = weatherDataArray[0].split("\"");
+        String [] ldr = weatherDataArray[4].split("\"");
+
+        System.out.println(temp1[1]);
+        System.out.println(weatherDataArray[1]);
+        System.out.println(weatherDataArray[2]);
+        System.out.println(weatherDataArray[3]);
+        System.out.println(ldr[0]);
+
+        temperature1 = Float.parseFloat(temp1[1]);
+        temperature2 = Float.parseFloat(weatherDataArray[1]);
+        pressure = Float.parseFloat(weatherDataArray[2]);
+        humidity = Float.parseFloat(weatherDataArray[3]);
+        brightness = Float.parseFloat(ldr[0]);
+        temperature = (temperature1 + temperature2)/2;
+
+        weatherDAO();
+
+
+
+
+
+
 
     }
     public void deliveryComplete(IMqttDeliveryToken iMqttDeliveryToken) {
 
 
+    }
+    public void hi(){
+        System.out.print("ali");
     }
 
     public String receiveNttTopic(){
@@ -213,8 +256,7 @@ public class PahoMqttClient implements MqttCallback {
 
 
     public void weatherDAO() {
-        DBmanager dbcon = null;
-        Connection conn = null;
+
 
         try {
             //make a connection with the database
@@ -227,14 +269,19 @@ public class PahoMqttClient implements MqttCallback {
             String time = sdft.format(cal.getTime());
 
 
+
 //date is primary key
+//            stmt.executeUpdate("INSERT INTO sensor (Date, Temperature, Pressure, Humidity,Brightness,Precipitation,Latitude,longitude) "
+//                    +"VALUES (" +time+ ","+temperature+","+pressure+","+humidity+","+brightness+","+precipitation+","+latitude+","+longitude+")");
             stmt.executeUpdate("INSERT INTO sensor (Date, Temperature, Pressure, Humidity,Brightness,Precipitation,Latitude,longitude) "
-                    +"VALUES (" +time+ ","+temperature+","+pressure+","+humidity+","+brightness+","+precipitation+","+latitude+","+longitude+")");
+                    +"VALUES ('2018-05-21 15:00:00',21,1.058,42,58,5,NULL ,NULL )");
             //("INSERT INTO sensor (Date, Temperature, Pressure, Humidity,Brightness,Precipitation,Latitude,longitude) "+"VALUES ('2018-05-21 15:00:00',21,1.058,42,58,5,NULL ,NULL )");
 
             conn.close();
         } catch (SQLException e) {
+
             e.printStackTrace();
+
 
         } finally {
             dbcon.close();
@@ -254,6 +301,8 @@ public class PahoMqttClient implements MqttCallback {
 
         PahoMqttClient ttn = new PahoMqttClient(clientID,appEUI,appKey);
         ttn.subscribe("+/devices/+/up");
+
+
 
     }
 }
