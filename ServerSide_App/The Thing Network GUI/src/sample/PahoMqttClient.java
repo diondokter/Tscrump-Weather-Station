@@ -48,12 +48,34 @@ import java.util.Calendar;
 public class PahoMqttClient implements MqttCallback {
     private MqttClient client;
     private boolean error = false;
-    private float temperature, pressure, humidity, brightness, precipitation;
-    private int latitude,longitude;
-    String mqttData;
+    private float temperature,temperature1,temperature2, pressure, humidity, brightness;
+    private float precipitation = 0;
+    private int latitude = 0;
+    private int longitude = 0;
+    private String mqttData;
+
+    //Default Tscrump Mqtt credentials
+    private String clientID = "Tscrump";
+    private String serverURI = "tcp://staging.thethingsnetwork.org:1883";
+    private String appEUI= "70B3D57ED00016FA";
+    private String appKey = "PlGBB/sm6KysRHZik1ot9oFBnSPauMyt7MHJXosW+Wc=";
+
+    public String getClientID() {
+        return clientID;
+    }
+
+    public String getAppEUI() {
+        return appEUI;
+    }
+
+    public String getAppKey() {
+        return appKey;
+    }
+
+
 
     //forTTN
-    public PahoMqttClient(String serverURI, String clientID, String appEUI, String appAccessKey){
+    public PahoMqttClient(String clientID, String appEUI, String appAccessKey){
         try {
 
             MqttConnectOptions connectOptions = new MqttConnectOptions();
@@ -170,6 +192,7 @@ public class PahoMqttClient implements MqttCallback {
         String weatherData = mqttDataArray[2];
         String[] weatherDataArray = weatherData.split(":");
         weatherData = weatherDataArray[1];
+
     }
     public void deliveryComplete(IMqttDeliveryToken iMqttDeliveryToken) {
 
@@ -219,19 +242,17 @@ public class PahoMqttClient implements MqttCallback {
     }
 
     public static void main(String[] args){
-        //dev eui 00 04 A3 0B 00 1C 04 FE
-// app eui 70 B3 D5 7E D0 00 18 F6
-//app key  C3485F16C6EFFF94FE9B95AB8E7EDAAE
-//netwerk B602CE2BE6B5EF52B0B9C8D8740F70BE
-//app session D3D35C1845B657F4490157FC487B831E
-        String id = "70B3D57ED00016FA";
-        String serveruri = "tcp://staging.thethingsnetwork.org:1883";
-        String appEUI= "70B3D57ED00016FA";
+
+//Van paul
+//        String pid = "me";
+//        String eui = "70B3D57ED00018F6";
+//        String key = "r7cAAHo0pY17udmgsvIP9HvL1mlmCbzh9kWbOQGKVLs=";
+        //tscrump
+        String clientID = "Tscrump";
         String appKey = "PlGBB/sm6KysRHZik1ot9oFBnSPauMyt7MHJXosW+Wc=";
-        String pid = "me";
-        String eui = "70B3D57ED00018F6";
-        String key = "r7cAAHo0pY17udmgsvIP9HvL1mlmCbzh9kWbOQGKVLs=";
-        PahoMqttClient ttn = new PahoMqttClient(serveruri,pid,eui,key);
+        String appEUI= "70B3D57ED00016FA";
+
+        PahoMqttClient ttn = new PahoMqttClient(clientID,appEUI,appKey);
         ttn.subscribe("+/devices/+/up");
 
     }

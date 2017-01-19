@@ -43,9 +43,6 @@ public class Controller {
     private TextField appAKField;
 
     @FXML
-    private TextField uriField;
-
-    @FXML
     private ToggleButton pubDefaultTopic;
 
     @FXML
@@ -53,11 +50,13 @@ public class Controller {
 
     @FXML
     private TextArea pubTextArea;
+    @FXML
+    private ToggleButton credentialsButton;
 
 
 
     public void connectAction(ActionEvent event)throws Exception{
-        paho = new PahoMqttClient(uriField.getText(),clientIDField.getText(),appEUIField.getText(),appAKField.getText());
+        paho = new PahoMqttClient(clientIDField.getText(),appEUIField.getText(),appAKField.getText());
         if (paho.getError() == false){
             sceneChanger("TtnClient.fxml",event);
         }
@@ -101,6 +100,20 @@ public class Controller {
         }
         else {
             paho.publish(pubTopicField.getText(),pubTextArea.getText());
+        }
+    }
+
+    public void DefaultCredentials(){
+        if (credentialsButton.isSelected()){
+            clientIDField.setText(paho.getClientID());
+            appEUIField.setText(paho.getAppEUI());
+            appAKField.setText(paho.getAppKey());
+        }
+        else {
+            clientIDField.clear();
+            appEUIField.clear();
+            appAKField.clear();
+
         }
     }
 
