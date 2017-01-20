@@ -189,7 +189,7 @@ namespace Tscrump_App
 			ChartView.Series.Add(SeriesCreation[DefaultSeries](TemperatureAxis, nameof(DataPoint.Date), nameof(DataPoint.Temperature), nameof(DataPointCollection.Data)));
 
 			// Pressure -------------------------------------------------------
-			NumericalAxis PressureAxis = YAxisCreation("Pressure (bar)", Color.Red);
+			NumericalAxis PressureAxis = YAxisCreation("Pressure (hPa)", Color.Red);
 			ChartView.Series.Add(SeriesCreation[DefaultSeries](PressureAxis, nameof(DataPoint.Date), nameof(DataPoint.Pressure), nameof(DataPointCollection.Data)));
 
 			// Humidity -------------------------------------------------------
@@ -278,8 +278,8 @@ namespace Tscrump_App
 					((NumericalAxis)TemperatureSeries.YAxis).Interval = DeltaTemperature / 10;
 
 					// Keep pressure from <min - >max
-					double MinimumPressure = 0.5;
-					double MaximumPressure = 1.5;
+					double MinimumPressure = 900;
+					double MaximumPressure = 1100;
 					double DeltaPressure = MaximumPressure - MinimumPressure;
 					((NumericalAxis)PressureSeries.YAxis).Minimum = MinimumPressure;
 					((NumericalAxis)PressureSeries.YAxis).Maximum = MaximumPressure;
