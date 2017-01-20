@@ -105,9 +105,9 @@ public class Controller {
 
     public void DefaultCredentials(){
         if (credentialsButton.isSelected()){
-            clientIDField.setText(paho.getClientID());
-            appEUIField.setText(paho.getAppEUI());
-            appAKField.setText(paho.getAppKey());
+            clientIDField.setText("Tscrump");
+            appEUIField.setText("70B3D57ED00016FA");
+            appAKField.setText("PlGBB/sm6KysRHZik1ot9oFBnSPauMyt7MHJXosW+Wc=");
         }
         else {
             clientIDField.clear();

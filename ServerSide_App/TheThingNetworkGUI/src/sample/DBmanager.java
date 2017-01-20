@@ -35,7 +35,7 @@ public class DBmanager {
             try {
 //                read in the properties by using a FileInputStream and the Properties object
 //                don’t forget to close your properties file
-                FileInputStream in = new FileInputStream("C:\\Users\\Cell\\Desktop\\projects\\Tscrump-Weather-Station\\ServerSide_App\\TheThingNetworkGUI\\src\\sample\\database.properties");
+                FileInputStream in = new FileInputStream("D:\\Tscrump-Weather-Station\\ServerSide_App\\TheThingNetworkGUI\\src\\sample\\database.properties");
                 props.load(in);
                 in.close();
                 fileloaded = true;

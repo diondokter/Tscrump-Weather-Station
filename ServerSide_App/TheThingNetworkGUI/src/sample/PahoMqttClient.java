@@ -182,44 +182,48 @@ public class PahoMqttClient implements MqttCallback {
 
     }
 
-    public int baseToint(String base64){
-        byte []  x = DatatypeConverter.parseBase64Binary(base64);
-        ByteBuffer wrapped = ByteBuffer.wrap(x); // big-endian by default
-        int num = wrapped.getShort();
-        return num;
-    }
+
 
     public void messageArrived(String string, MqttMessage mqttMessage) throws Exception {
-        //need to be changed
-        System.out.println(mqttMessage);
-        mqttData = mqttMessage.toString();
 
+        mqttData = mqttMessage.toString();
         String [] mqttDataArray = mqttData.split("([{}])");
 
 
-        System.out.println("index2 "+mqttDataArray[2]);
+//        System.out.println("index2 "+mqttDataArray[2]);
 
         weatherData = mqttDataArray[2];
 
+        //used regex to split the string and get the weather ifromation from it.
         String[] weatherDataArray = weatherData.split(":");
         weatherData = weatherDataArray[1];
         System.out.println(weatherData);
         weatherDataArray = weatherData.split(",");
+
+        // removes the '"' from the begin of the string and the end
         String [] temp1 = weatherDataArray[0].split("\"");
         String [] ldr = weatherDataArray[4].split("\"");
 
-        System.out.println(temp1[1]);
-        System.out.println(weatherDataArray[1]);
-        System.out.println(weatherDataArray[2]);
-        System.out.println(weatherDataArray[3]);
-        System.out.println(ldr[0]);
+        // debug code
+//        System.out.println(temp1[1]);
+//        System.out.println(weatherDataArray[1]);
+//        System.out.println(weatherDataArray[2]);
+//        System.out.println(weatherDataArray[3]);
+//        System.out.println(ldr[0]);
 
+
+        //parse string to a float so it can be added to the database
         temperature1 = Float.parseFloat(temp1[1]);
         temperature2 = Float.parseFloat(weatherDataArray[1]);
         pressure = Float.parseFloat(weatherDataArray[2]);
         humidity = Float.parseFloat(weatherDataArray[3]);
         brightness = Float.parseFloat(ldr[0]);
+        brightness = (brightness/1023)*100;
         temperature = (temperature1 + temperature2)/2;
+        System.out.println("Temperature: "+temperature);
+        System.out.println("Pressure: "+pressure);
+        System.out.println("Humidity: "+humidity);
+        System.out.println("Brightness: "+brightness);
 
         weatherDAO();
 
@@ -268,7 +272,9 @@ public class PahoMqttClient implements MqttCallback {
 
 //date is primary key
             stmt.executeUpdate("INSERT INTO sensor (Date, Temperature, Pressure, Humidity,Brightness,Precipitation,Latitude,longitude) "
-                    +"VALUES (" +time+ ","+temperature+","+pressure+","+humidity+","+brightness+","+precipitation+","+latitude+","+longitude+")");
+                    +"VALUES ("+"\""+time+"\""+","+temperature+","+pressure+","+humidity+","+brightness+","+precipitation+","+"NULL"+","+"NULL"+")");
+
+            //test values for fast debug.
 //            stmt.executeUpdate("INSERT INTO sensor (Date, Temperature, Pressure, Humidity,Brightness,Precipitation,Latitude,longitude) "
 //                    +"VALUES ('2018-05-21 15:00:00',21,1.058,42,58,5,NULL ,NULL )");
 
@@ -278,7 +284,6 @@ public class PahoMqttClient implements MqttCallback {
 
             e.printStackTrace();
 
-
         } finally {
             dbcon.close();
         }
@@ -286,10 +291,12 @@ public class PahoMqttClient implements MqttCallback {
 
     public static void main(String[] args){
 
-//Van paul
-//        String pid = "me";
+//         credentails from the other group.
+//        String id = "paul";
 //        String eui = "70B3D57ED00018F6";
 //        String key = "r7cAAHo0pY17udmgsvIP9HvL1mlmCbzh9kWbOQGKVLs=";
+
+
         //tscrump
         String clientID = "Tscrump";
         String appKey = "PlGBB/sm6KysRHZik1ot9oFBnSPauMyt7MHJXosW+Wc=";

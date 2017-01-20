@@ -1,5 +1,7 @@
 package sample;
 
+import javax.xml.bind.DatatypeConverter;
+import java.nio.ByteBuffer;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -29,7 +31,7 @@ public class TestCityDao {
 //            stmt.executeUpdate("insert into weatherr values (2016-10-21 15:00:00,21,1.058,42,58,5,NULL ,NULL )");
 //date is primary key 
             stmt.executeUpdate("INSERT INTO sensor (Date, Temperature, Pressure, Humidity,Brightness,Precipitation,Latitude,longitude) "
-                    +"VALUES ('2017-05-23 15:00:00',21,1.058,42,58,5,NULL ,NULL )");
+                    +"VALUES ('2017-01-2 15:00:00',21,1.058,42,58,5,NULL ,NULL )");
 //                    "insert into weatherr values (2016-10-21 15:00:00,21,1.058,42,58,5,NULL ,NULL );");
 //            stmt.executeUpdate("insert into Datas (Times,Temperature, Air_Pressure,Humidity,Windspeed,Brightness) values ('" +time +"','"+temperature +"','" +pressure +"','" +humidity +"','" +windspeed +"','"+brightness +"');");
 
@@ -42,3 +44,9 @@ public class TestCityDao {
         }
     }
 }
+//    public int baseToint(String base64){
+//        byte []  x = DatatypeConverter.parseBase64Binary(base64);
+//        ByteBuffer wrapped = ByteBuffer.wrap(x); // big-endian by default
+//        int num = wrapped.getShort();
+//        return num;
+//    }
