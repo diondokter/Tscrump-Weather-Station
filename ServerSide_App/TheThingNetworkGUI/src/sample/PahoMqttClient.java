@@ -14,11 +14,7 @@ import java.util.Calendar;
  * Created by ali on 11/28/16.
  */
 
-//dev eui 00 04 A3 0B 00 1C 04 FE
-// app eui 70 B3 D5 7E D0 00 18 F6
-//app key  C3485F16C6EFFF94FE9B95AB8E7EDAAE
-//netwerk B602CE2BE6B5EF52B0B9C8D8740F70BE
-//app session D3D35C1845B657F4490157FC487B831E
+
 /**
  * https://www.thethingsnetwork.org/docs/current/mqtt/
  * https://mosquitto.org/man/mosquitto_sub-1.html
@@ -271,11 +267,11 @@ public class PahoMqttClient implements MqttCallback {
 
 
 //date is primary key
-//            stmt.executeUpdate("INSERT INTO sensor (Date, Temperature, Pressure, Humidity,Brightness,Precipitation,Latitude,longitude) "
-//                    +"VALUES (" +time+ ","+temperature+","+pressure+","+humidity+","+brightness+","+precipitation+","+latitude+","+longitude+")");
             stmt.executeUpdate("INSERT INTO sensor (Date, Temperature, Pressure, Humidity,Brightness,Precipitation,Latitude,longitude) "
-                    +"VALUES ('2018-05-21 15:00:00',21,1.058,42,58,5,NULL ,NULL )");
-            //("INSERT INTO sensor (Date, Temperature, Pressure, Humidity,Brightness,Precipitation,Latitude,longitude) "+"VALUES ('2018-05-21 15:00:00',21,1.058,42,58,5,NULL ,NULL )");
+                    +"VALUES (" +time+ ","+temperature+","+pressure+","+humidity+","+brightness+","+precipitation+","+latitude+","+longitude+")");
+//            stmt.executeUpdate("INSERT INTO sensor (Date, Temperature, Pressure, Humidity,Brightness,Precipitation,Latitude,longitude) "
+//                    +"VALUES ('2018-05-21 15:00:00',21,1.058,42,58,5,NULL ,NULL )");
+
 
             conn.close();
         } catch (SQLException e) {
