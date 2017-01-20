@@ -64,6 +64,7 @@
     <Reference Include="I18N.West" />
     <Reference Include="Mono.Android" />
     <Reference Include="mscorlib" />
+
     <Reference Include="MySql.Data.CF">
       <HintPath>..\..\packages\mysql-connector-net-6.7.9-noinstall\v2.0\MySql.Data.CF.dll</HintPath>
     </Reference>

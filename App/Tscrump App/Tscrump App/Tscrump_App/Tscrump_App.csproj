@@ -38,6 +38,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+
     <Compile Include="ChartOptionsPage.xaml.cs">
       <DependentUpon>ChartOptionsPage.xaml</DependentUpon>
     </Compile>
@@ -46,7 +47,9 @@
     </Compile>
     <Compile Include="DatabaseManager.cs" />
     <Compile Include="Extentions.cs" />
+
     <Compile Include="ICultureProvider.cs" />
+
     <Compile Include="IDatabaseManager.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>

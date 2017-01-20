@@ -14,6 +14,7 @@ namespace Tscrump_App
 {
 	public partial class ChartPage : ContentPage
 	{
+
 		public XyDataSeries TemperatureSeries
 		{
 			get
@@ -160,6 +161,7 @@ namespace Tscrump_App
 		public ChartPage()
 		{
 			InitializeComponent();
+
 
 			// On android the chart crashes if there's no data to bind. So let's give it some data in the form of an empty array.
 			this.BindingContext = new DataPointCollection(new DataPoint[0]);

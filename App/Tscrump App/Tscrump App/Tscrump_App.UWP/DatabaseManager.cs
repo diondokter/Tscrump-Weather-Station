@@ -125,6 +125,7 @@ namespace Tscrump_App.UWP
 
 		public List<object> ExecuteReader(string Query, int Column)
 		{
+
 			try
 			{
 				MySqlCommand Command = Connection.CreateCommand();

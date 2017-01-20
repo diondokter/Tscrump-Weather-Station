@@ -6,6 +6,7 @@
 
 	<ScrollView>
 		<StackLayout Padding="20,0">
+
 			<StackLayout Margin="-20,0" BackgroundColor="#00CCBB" Padding="5">
 				<Label Text="Weather Station Chart" FontSize="40" HorizontalTextAlignment="Center" TextColor="White"/>
 			</StackLayout>
@@ -36,6 +37,7 @@
 
 
 				<Label Text="Temperature" Grid.Row="0" Grid.Column="0" HorizontalOptions="End"/>
+
 				<Switch x:Name="TemperatureSwitch" Grid.Row="1" Grid.Column="0" HorizontalOptions="End" IsToggled="True" Toggled="Update"/>
 				<Label Text="Pressure" Grid.Row="0" Grid.Column="1" HorizontalOptions="Center"/>
 				<Switch x:Name="PressureSwitch" Grid.Row="1" Grid.Column="1" HorizontalOptions="Center" IsToggled="True" Toggled="Update"/>

@@ -24,6 +24,7 @@ namespace Tscrump_App
 		/// <param name="Query">The SQL query to execute</param>
 		/// <returns>A list of object arrays where the list represents the rows and where the arrays represent the columns.</returns>
 		List<object[]> ExecuteReader(string Query);
+
 		/// <summary>
 		/// Executes a query that returns rows of columns
 		/// </summary>

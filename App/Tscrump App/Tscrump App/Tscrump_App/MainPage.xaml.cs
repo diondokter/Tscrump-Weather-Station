@@ -16,6 +16,8 @@ namespace Tscrump_App
 		public MainPage()
 		{
 			InitializeComponent();
+		}
+
 
 			// Set the image source for the logo
 			LogoImage.Source = ImageSource.FromResource("Tscrump_App.TscrumpLogo.png");
