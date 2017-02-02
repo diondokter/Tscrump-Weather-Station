@@ -13,7 +13,7 @@ namespace Tscrump_App
 		{
 			InitializeComponent();
 
-			MainPage = new Tscrump_App.MainPage();
+			MainPage = new NavigationPage(new MainPage());
 		}
 
 		protected override void OnStart()
