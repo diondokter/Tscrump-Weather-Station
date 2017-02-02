@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:local="clr-namespace:Tscrump_App"
+             x:Class="Tscrump_App.ChartOptionsPage"
+			 Padding="5,0">
+
+	<TableView Intent="Settings">
+		<TableRoot>
+			<TableSection Title="Temperature">
+				<ViewCell>
+					<StackLayout Orientation="Horizontal" Padding="15,0" HeightRequest="40">
+						<Label Text="Line Visible" VerticalOptions="Center" HorizontalOptions="Start"/>
+						<Switch x:Name="TemperatureVisibleSwitch" HorizontalOptions="EndAndExpand" VerticalOptions="Center"/>
+					</StackLayout>
+				</ViewCell>
+				<ViewCell>
+					<StackLayout Orientation="Horizontal" Padding="15,0" HeightRequest="40">
+						<Label Text="Color" VerticalOptions="Center" HorizontalOptions="Start"/>
+						<Picker x:Name="TemperatureColorPicker" HorizontalOptions="EndAndExpand" VerticalOptions="Center"/>
+					</StackLayout>
+				</ViewCell>
+				<ViewCell>
+					<StackLayout Orientation="Horizontal" Padding="15,0" HeightRequest="40">
+						<Label Text="Type" VerticalOptions="Center" HorizontalOptions="Start"/>
+						<Picker x:Name="TemperatureLineTypePicker" HorizontalOptions="EndAndExpand" VerticalOptions="Center"/>
+					</StackLayout>
+				</ViewCell>
+			</TableSection>
+			<TableSection Title="Pressure">
+				<ViewCell>
+					<StackLayout Orientation="Horizontal" Padding="15,0" HeightRequest="40">
+						<Label Text="Line Visible" VerticalOptions="Center" HorizontalOptions="Start"/>
+						<Switch x:Name="PressureVisibleSwitch" HorizontalOptions="EndAndExpand" VerticalOptions="Center"/>
+					</StackLayout>
+				</ViewCell>
+				<ViewCell>
+					<StackLayout Orientation="Horizontal" Padding="15,0" HeightRequest="40">
+						<Label Text="Color" VerticalOptions="Center" HorizontalOptions="Start"/>
+						<Picker x:Name="PressureColorPicker" HorizontalOptions="EndAndExpand" VerticalOptions="Center"/>
+					</StackLayout>
+				</ViewCell>
+				<ViewCell>
+					<StackLayout Orientation="Horizontal" Padding="15,0" HeightRequest="40">
+						<Label Text="Type" VerticalOptions="Center" HorizontalOptions="Start"/>
+						<Picker x:Name="PressureLineTypePicker" HorizontalOptions="EndAndExpand" VerticalOptions="Center"/>
+					</StackLayout>
+				</ViewCell>
+			</TableSection>
+			<TableSection Title="Humidity">
+				<ViewCell>
+					<StackLayout Orientation="Horizontal" Padding="15,0" HeightRequest="40">
+						<Label Text="Line Visible" VerticalOptions="Center" HorizontalOptions="Start"/>
+						<Switch x:Name="HumidityVisibleSwitch" HorizontalOptions="EndAndExpand" VerticalOptions="Center"/>
+					</StackLayout>
+				</ViewCell>
+				<ViewCell>
+					<StackLayout Orientation="Horizontal" Padding="15,0" HeightRequest="40">
+						<Label Text="Color" VerticalOptions="Center" HorizontalOptions="Start"/>
+						<Picker x:Name="HumidityColorPicker" HorizontalOptions="EndAndExpand" VerticalOptions="Center"/>
+					</StackLayout>
+				</ViewCell>
+				<ViewCell>
+					<StackLayout Orientation="Horizontal" Padding="15,0" HeightRequest="40">
+						<Label Text="Type" VerticalOptions="Center" HorizontalOptions="Start"/>
+						<Picker x:Name="HumidityLineTypePicker" HorizontalOptions="EndAndExpand" VerticalOptions="Center"/>
+					</StackLayout>
+				</ViewCell>
+			</TableSection>
+			<TableSection Title="Brightness">
+				<ViewCell>
+					<StackLayout Orientation="Horizontal" Padding="15,0" HeightRequest="40">
+						<Label Text="Line Visible" VerticalOptions="Center" HorizontalOptions="Start"/>
+						<Switch x:Name="BrightnessVisibleSwitch" HorizontalOptions="EndAndExpand" VerticalOptions="Center"/>
+					</StackLayout>
+				</ViewCell>
+				<ViewCell>
+					<StackLayout Orientation="Horizontal" Padding="15,0" HeightRequest="40">
+						<Label Text="Color" VerticalOptions="Center" HorizontalOptions="Start"/>
+						<Picker x:Name="BrightnessColorPicker" HorizontalOptions="EndAndExpand" VerticalOptions="Center"/>
+					</StackLayout>
+				</ViewCell>
+				<ViewCell>
+					<StackLayout Orientation="Horizontal" Padding="15,0" HeightRequest="40">
+						<Label Text="Type" VerticalOptions="Center" HorizontalOptions="Start"/>
+						<Picker x:Name="BrightnessLineTypePicker" HorizontalOptions="EndAndExpand" VerticalOptions="Center"/>
+					</StackLayout>
+				</ViewCell>
+			</TableSection>
+			<TableSection Title="Precipitation">
+				<ViewCell>
+					<StackLayout Orientation="Horizontal" Padding="15,0" HeightRequest="40">
+						<Label Text="Line Visible" VerticalOptions="Center" HorizontalOptions="Start"/>
+						<Switch x:Name="PrecipitationVisibleSwitch" HorizontalOptions="EndAndExpand" VerticalOptions="Center"/>
+					</StackLayout>
+				</ViewCell>
+				<ViewCell>
+					<StackLayout Orientation="Horizontal" Padding="15,0" HeightRequest="40">
+						<Label Text="Color" VerticalOptions="Center" HorizontalOptions="Start"/>
+						<Picker x:Name="PrecipitationColorPicker" HorizontalOptions="EndAndExpand" VerticalOptions="Center"/>
+					</StackLayout>
+				</ViewCell>
+				<ViewCell>
+					<StackLayout Orientation="Horizontal" Padding="15,0" HeightRequest="40">
+						<Label Text="Type" VerticalOptions="Center" HorizontalOptions="Start"/>
+						<Picker x:Name="PrecipitationLineTypePicker" HorizontalOptions="EndAndExpand" VerticalOptions="Center"/>
+					</StackLayout>
+				</ViewCell>
+			</TableSection>
+		</TableRoot>
+	</TableView>
+</ContentPage>

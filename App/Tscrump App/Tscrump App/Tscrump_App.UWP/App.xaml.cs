@@ -7,6 +7,9 @@ using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Foundation.Metadata;
+using Windows.UI;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -14,6 +17,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+
 
 namespace Tscrump_App.UWP
 {
@@ -37,15 +41,22 @@ namespace Tscrump_App.UWP
 		/// will be used such as when the application is launched to open a specific file.
 		/// </summary>
 		/// <param name="e">Details about the launch request and process.</param>
-		protected override void OnLaunched(LaunchActivatedEventArgs e)
+		protected override async void OnLaunched(LaunchActivatedEventArgs e)
 		{
 
 #if DEBUG
-            if (System.Diagnostics.Debugger.IsAttached)
-            {
-                //this.DebugSettings.EnableFrameRateCounter = true;
-            }
+			if (System.Diagnostics.Debugger.IsAttached)
+			{
+				//this.DebugSettings.EnableFrameRateCounter = true;
+			}
 #endif
+
+			if (ApiInformation.IsTypePresent("Windows.UI.ViewManagement.StatusBar"))
+			{
+				await StatusBar.GetForCurrentView().ShowAsync();
+				StatusBar Bar = StatusBar.GetForCurrentView();
+				await Bar.HideAsync();
+			}
 
 			Frame rootFrame = Window.Current.Content as Frame;
 
